@@ -3,6 +3,7 @@ Read CRFReporter files and crete summary for EU countries.
 The main file is euco2.py
 Command line is (for example):
 python euco2.py -d EU-MS/2017 -s 1990 -e 2015 -a 
+As usual python euco2.py -h gives the help.
 
 EU-MS/2017 is the directory is the for the downloaded excel files
 
