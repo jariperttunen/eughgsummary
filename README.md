@@ -1,0 +1,15 @@
+# eughgsummary
+Read CRFReporter files and crete summary for EU countries.
+The main file is euco2.py
+Command line is (for example):
+python euco2.py -d EU-MS/2017 -s 1990 -e 2015 -a 
+
+EU-MS/2017 is the directory is the for the downloaded excel files
+
+To setup virtual python3 virtual environment use the requirements.txt file.
+The proxy option tells the Luke proxy if needed.
+
+python3 -m venv eughg
+source eughg/bin/activate
+pip --proxy 10.88.2.10:8080 install -r requirements.txt
+
