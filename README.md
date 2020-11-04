@@ -12,6 +12,8 @@ To setup virtual python3 virtual environment use the requirements.txt file.
 The proxy option tells the Luke proxy if needed.
 
 python3 -m venv eughg
+
 source eughg/bin/activate
+
 pip --proxy 10.88.2.10:8080 install -r requirements.txt
 
