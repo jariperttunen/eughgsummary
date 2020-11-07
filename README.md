@@ -9,7 +9,7 @@ As usual python euco2.py -h gives the help.
 EU-MS/2017 is the directory for the downloaded excel files
 
 To setup python3 virtual environment use the requirements.txt file.
-The proxy option tells the (Luke) proxy if needed.
+The proxy option tells the (Luke) proxy server if needed.
 
 python3 -m venv eughg
 
