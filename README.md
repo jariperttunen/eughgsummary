@@ -15,5 +15,5 @@ python3 -m venv eughg
 
 source eughg/bin/activate
 
-pip --proxy 10.88.2.10:8080 install -r requirements.txt
+pip --proxy <proxy server> install -r requirements.txt
 
