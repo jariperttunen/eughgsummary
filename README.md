@@ -15,5 +15,5 @@ python3 -m venv eughg
 
 source eughg/bin/activate
 
-pip --proxy < proxy server > install -r requirements.txt
+pip --proxy proxy_server install -r requirements.txt
 
