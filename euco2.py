@@ -13,11 +13,11 @@ inventory_end=2015
 sheetls = ['Table4.A','Table4.B','Table4.C',
            'Table4.D','Table4.E','Table4.F']
 euls=['FIN','AUT','BEL','BGR','CYP','CZE','DEU',
-      'DNK','ESP','EST','FRA','GBR','GRC','HRV',
+      'DNK','ESP','EST','FRA','GRC','HRV',
       'HUN','IRL','ITA','LTU','LUX','LVA',
       'MLT','NLD','POL','PRT','ROU','SVK',
       'SVN','SWE']
-noneuls=['CAN','CHE','EUA','ISL','JPN','LIE','MCO','NOR','RUS','TUR','USA']
+noneuls=['CAN','CHE','EUA','GBR','ISL','JPN','LIE','MCO','NOR','RUS','TUR','USA']
 countryls=euls+noneuls
 
 table4A_total_FL_ls = ['A. Total forest land']
@@ -70,7 +70,7 @@ def CreateExcelSheet(writer,writer2,directory,countryls,sheet,row_name,col,sheet
     data_row_ls=[]
     for country in countryls:
         print(country,row_name,sheet_name)
-        country=country.lower()
+        #country=country.lower()
         #Move dirfilels as parameter or implement more generic way to retrieve
         #excel files for one country.
         dirfilels=glob.glob(directory+'/'+country+'*/*.xlsx')
@@ -121,54 +121,56 @@ if __name__ == "__main__":
     if args.f3 != None:
         inventory_end=int(args.f3)
     print("Inventory end",inventory_end)
+    file_prefix = 'EU'
     if args.f4 == True:
         print("Using all countries")
         countryls=euls+noneuls
+        file_prefix='EU_and_Others'
     else:
         print("Using EU countries")
         countryls=euls
         
-    writer = pd.ExcelWriter('EU_NetCO2_emissions_removals_1990_2015_submitted.xlsx',
+    writer = pd.ExcelWriter(file_prefix+'_NetCO2_emissions_removals_'+str(inventory_start)+'_'+str(inventory_end)+'_submitted.xlsx',
                             engine='xlsxwriter')
     #Table 4 A Total forest land
-    writer2 = pd.ExcelWriter('EU_NetCO2_'+sheetls[0]+'Total_FL_1990_2015.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[0]+'Total_FL_'+str(inventory_start)+'_'+str(inventory_end)+'+.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4A_total_FL_ls,table4A_total_FL_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[0],row_name,19,sheet_name,inventory_start,inventory_end)
     writer2.save()
     #1. Table 4.A
-    writer2 = pd.ExcelWriter('EU_NetCO2_'+sheetls[0]+'1990_2015.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[0]+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4A_row_ls,table4A_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[0],row_name,19,sheet_name,inventory_start,inventory_end)
     writer2.save()
     #2. Table 4.B
-    writer2 = pd.ExcelWriter('EU_NetCO2_'+sheetls[1]+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[1]+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4B_row_ls,table4B_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[1],row_name,17,sheet_name,inventory_start,inventory_end)
     writer2.save()
     #3. Table 4.C
-    writer2 = pd.ExcelWriter('EU_NetCO2_'+sheetls[2]+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[2]+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4C_row_ls,table4C_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[2],row_name,17,sheet_name,inventory_start,inventory_end)
     writer2.save()
 
     #4. Table 4.D
-    writer2 = pd.ExcelWriter('EU_NetCO2_'+sheetls[3]+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[3]+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4D_row_ls,table4D_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[3],row_name,17,sheet_name,inventory_start,inventory_end)
     writer2.save()
     #5. Table 4.E
-    writer2 = pd.ExcelWriter('EU_NetCO2_'+sheetls[4]+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[4]+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4E_row_ls,table4E_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[4],row_name,17,sheet_name,inventory_start,inventory_end)
     writer2.save()
     #6. Table 4.F
-    writer2 = pd.ExcelWriter('EU_NetCO2_'+sheetls[5]+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[5]+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4F_row_ls,table4F_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[5],row_name,17,sheet_name,inventory_start,inventory_end)

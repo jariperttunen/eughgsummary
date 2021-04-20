@@ -11,11 +11,11 @@ inventory_end=2015
 
 #List of excel sheets needed
 euls=['FIN','AUT','BEL','BGR','CYP','CZE','DEU',
-      'DNK','ESP','EST','FRA','GBR','GRC','HRV',
+      'DNK','ESP','EST','FRA','GRC','HRV',
       'HUN','IRL','ITA','LTU','LUX','LVA',
       'MLT','NLD','POL','PRT','ROU','SVK',
       'SVN','SWE']
-noneuls=['CAN','CHE','EUA','ISL','JPN','LIE','MCO','NOR','RUS','TUR','USA']
+noneuls=['CAN','CHE','EUA','GBR','ISL','JPN','LIE','MCO','NOR','RUS','TUR','USA']
 countryls=euls+noneuls
 sheetls = ['Table4.Gs1']
 table4Gs1_sheet_name_ls=['Table4.Gs1 Total HWP','Table4.Gs1 Total HWP Domestic','Table4.Gs1 Total HWP Exported']
@@ -41,7 +41,7 @@ def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_n
     data_row_ls2=[]
     approachA_set=set()
     for country in countryls:
-        country=country.lower()
+        #country=country.lower()
         #List all excel files and sort the files in ascending order (1990,1991,...,2015)
         excelfilels=glob.glob(directory+'/'+country+'*/*.xlsx')
         excelfilels=sorted(excelfilels)
@@ -136,15 +136,17 @@ if __name__ == "__main__":
     if options.f3 != None:
         inventory_end=int(options.f3)
     print("Inventory end",inventory_end)
+    file_prefix = 'EU'
     if options.f4 == True:
         print("Using all countries")
         countryls=euls+noneuls
+        file_prefix ='EU_and_Others'
     else:
         print("Using EU countries")
         countryls=euls
         
-    writer = pd.ExcelWriter('Table4.Gs1_with_ApproachA.xlsx',
+    writer = pd.ExcelWriter(file_prefix+'_Table4.Gs1_with_ApproachA.xlsx',
                         engine='xlsxwriter')
     #1. Table4G.s1
-    CreateHWPExcelSheet(writer,'EU-MS/2017/',countryls,sheetls[0],table4Gs1_row_ls,5,table4Gs1_sheet_name_ls,inventory_start,inventory_end)
+    CreateHWPExcelSheet(writer,options.f1,countryls,sheetls[0],table4Gs1_row_ls,5,table4Gs1_sheet_name_ls,inventory_start,inventory_end)
     writer.save()
