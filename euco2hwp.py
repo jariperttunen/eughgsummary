@@ -3,7 +3,7 @@ import numpy as np
 import math
 import numbers
 import glob
-from optparse import OptionParser as OP
+import argparse
 
 directory='EU-MS/2017'
 inventory_start=1990
@@ -120,33 +120,39 @@ def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_n
 
 
 if __name__ == "__main__":
-    parser = OP()
-    parser.add_option("-d","--directory",dest="f1",help="Inventory Parties Directory")
-    parser.add_option("-s","--start",dest="f2",help="Inventory start year (1990)")
-    parser.add_option("-e","--end",dest="f3",help="Inventory end year")
-    parser.add_option("-a","--all",action="store_true",dest="f4",default=False,help="All countries")
-    
-    (options,args) = parser.parse_args()
-    if options.f1 != None:
-        directory=options.f1
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d","--directory",dest="f1",required=True,help="Inventory Parties Directory (default EU-MH/2017)")
+    parser.add_argument("-s","--start",dest="f2",required=True,help="Inventory start year (usually 1990)")
+    parser.add_argument("-e","--end",dest="f3",required=True,help="Inventory end year (default 2015")
+    group=parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--eu",action="store_true",dest="f4",default=False,help="EU countries")
+    group.add_argument("-a","--all",action="store_true",dest="f5",default=False,help="All countries (EU+others")
+    group.add_argument("-c","--countries",dest="f6",type=str,nargs='+',help="List of countries")
+
+    args = parser.parse_args()
+    directory=args.f1
     print("Inventory Parties directory",directory)
-    if options.f2 != None:
-        inventory_start=int(options.f2)
+    inventory_start=int(args.f2)
     print("Inventory start",inventory_start)
-    if options.f3 != None:
-        inventory_end=int(options.f3)
+    inventory_end=int(args.f3)
     print("Inventory end",inventory_end)
     file_prefix = 'EU'
-    if options.f4 == True:
-        print("Using all countries")
-        countryls=euls+noneuls
-        file_prefix ='EU_and_Others'
-    else:
-        print("Using EU countries")
+    if args.f4:
+        print("Using EU  countries")
         countryls=euls
-        
+    elif args.f5:
+        print("Using all countries")
+        countryls = euls+noneuls
+        file_prefix='EU_and_Others'
+    else:
+        print("Using countries", args.f6) 
+        countryls=args.f6
+        file_prefix=countryls[0]
+        for country in countryls[1:]:
+            file_prefix = file_prefix+"_"+country
+
     writer = pd.ExcelWriter(file_prefix+'_Table4.Gs1_with_ApproachA.xlsx',
                         engine='xlsxwriter')
     #1. Table4G.s1
-    CreateHWPExcelSheet(writer,options.f1,countryls,sheetls[0],table4Gs1_row_ls,5,table4Gs1_sheet_name_ls,inventory_start,inventory_end)
+    CreateHWPExcelSheet(writer,args.f1,countryls,sheetls[0],table4Gs1_row_ls,5,table4Gs1_sheet_name_ls,inventory_start,inventory_end)
     writer.save()

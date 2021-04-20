@@ -106,30 +106,36 @@ def CreateExcelSheet(writer,writer2,directory,countryls,sheet,row_name,col,sheet
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-d","--directory",dest="f1",help="Inventory Parties Directory (default EU-MH/2017)")
-    parser.add_argument("-s","--start",dest="f2",help="Inventory start year (usually 1990)")
-    parser.add_argument("-e","--end",dest="f3",help="Inventory end year (default 2015")
-    parser.add_argument("-a","--all",action="store_true",dest="f4",default=False,help="All countries (EU+others")
-    
+    parser.add_argument("-d","--directory",dest="f1",required=True,help="Inventory Parties Directory (default EU-MH/2017)")
+    parser.add_argument("-s","--start",dest="f2",required=True,help="Inventory start year (usually 1990)")
+    parser.add_argument("-e","--end",dest="f3",required=True,help="Inventory end year (default 2015")
+    group=parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--eu",action="store_true",dest="f4",default=False,help="EU countries")
+    group.add_argument("-a","--all",action="store_true",dest="f5",default=False,help="All countries (EU+others")
+    group.add_argument("-c","--countries",dest="f6",type=str,nargs='+',help="List of countries")
+
     args = parser.parse_args()
-    if args.f1 != None:
-        directory=args.f1
+    directory=args.f1
     print("Inventory Parties directory",directory)
-    if args.f2 != None:
-        inventory_start=int(args.f2)
+    inventory_start=int(args.f2)
     print("Inventory start",inventory_start)
-    if args.f3 != None:
-        inventory_end=int(args.f3)
+    inventory_end=int(args.f3)
     print("Inventory end",inventory_end)
     file_prefix = 'EU'
-    if args.f4 == True:
+    if args.f4:
+        print("Using EU  countries")
+        countryls=euls
+    elif args.f5:
         print("Using all countries")
-        countryls=euls+noneuls
+        countryls = euls+noneuls
         file_prefix='EU_and_Others'
     else:
-        print("Using EU countries")
-        countryls=euls
-        
+        print("Using countries", args.f6) 
+        countryls=args.f6
+        file_prefix=countryls[0]
+        for country in countryls[1:]:
+            file_prefix = file_prefix+"_"+country
+
     writer = pd.ExcelWriter(file_prefix+'_NetCO2_emissions_removals_'+str(inventory_start)+'_'+str(inventory_end)+'_submitted.xlsx',
                             engine='xlsxwriter')
     #Table 4 A Total forest land
