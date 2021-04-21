@@ -121,9 +121,9 @@ def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_n
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-d","--directory",dest="f1",required=True,help="Inventory Parties Directory (default EU-MH/2017)")
+    parser.add_argument("-d","--directory",dest="f1",required=True,help="Inventory Parties Directory")
     parser.add_argument("-s","--start",dest="f2",required=True,help="Inventory start year (usually 1990)")
-    parser.add_argument("-e","--end",dest="f3",required=True,help="Inventory end year (default 2015")
+    parser.add_argument("-e","--end",dest="f3",required=True,help="Inventory end year")
     group=parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--eu",action="store_true",dest="f4",default=False,help="EU countries")
     group.add_argument("-a","--all",action="store_true",dest="f5",default=False,help="All countries (EU+others")
