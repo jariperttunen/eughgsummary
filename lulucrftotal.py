@@ -109,7 +109,7 @@ if __name__ == "__main__":
     group=parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--eu",action="store_true",dest="f4",default=False,help="EU countries")
     group.add_argument("-a","--all",action="store_true",dest="f5",default=False,help="All countries (EU+others")
-    parser.add_argument("-c","--countries",dest="f6",type=str,nargs='+',help="List of countries from the official acronyms separated by spaces")
+    group.add_argument("-c","--countries",dest="f6",type=str,nargs='+',help="List of countries from the official acronyms separated by spaces")
     parser.add_argument('--GWP',type=str,dest='gwp',default="AR4",help="Global warming potential, AR4 (GHG inventory, default) or AR5 (e.g. scenarios)")
     args = parser.parse_args()
     #ARW4, GHG default
