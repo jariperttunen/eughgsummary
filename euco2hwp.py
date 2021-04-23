@@ -112,12 +112,6 @@ def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_n
     df_export.columns=list(range(start,end+1))
     df_export.to_excel(writer,sheet_name=sheet_name_ls[2],na_rep='NaN')
 
-#writer = pd.ExcelWriter('Table4.Gs1.xlsx',
-#                        engine='xlsxwriter')
-#1. Table4G.s1
-#CreateHWPExcelSheet(writer,euls,sheetls[0],table4Gs1_row_ls[0],5,table4Gs1_sheet_name_ls)
-#writer.save()
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
