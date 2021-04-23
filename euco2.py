@@ -136,10 +136,11 @@ if __name__ == "__main__":
         for country in countryls[1:]:
             file_prefix = file_prefix+"_"+country
 
-    writer = pd.ExcelWriter(file_prefix+'_NetCO2_emissions_removals_'+str(inventory_start)+'_'+str(inventory_end)+'_submitted.xlsx',
+    #Collect all in one file
+    writer = pd.ExcelWriter(file_prefix+'_NetCO2_emissions_removals_'+str(inventory_start)+'_'+str(inventory_end)+'_all.xlsx',
                             engine='xlsxwriter')
     #Table 4 A Total forest land
-    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[0]+'Total_FL_'+str(inventory_start)+'_'+str(inventory_end)+'+.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[0]+'Total_FL_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4A_total_FL_ls,table4A_total_FL_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[0],row_name,19,sheet_name,inventory_start,inventory_end)
