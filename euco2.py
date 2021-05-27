@@ -23,6 +23,7 @@ countryls=euls+noneuls
 table4A_total_FL_ls = ['A. Total forest land']
 table4A_total_FL_sheet_name_ls = ['4A Total FL']
 
+#Note the row names in the following '*_row_ls' lists are substrings that however can uniquely identify the row
 table4A_row_ls = ['1. Forest','2.1 Cropland','2.2 Grassland','2.3 Wetlands',
                   '2.4 Settlements','2.5 Other']
 table4A_sheet_name_ls = ['4A1 FL remaining FL','4A2.1 CL to FL','4A2.2 GL to FL',
