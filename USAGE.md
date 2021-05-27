@@ -5,8 +5,8 @@ eughgsummary contains three scripts to collect and organise data from annual CRF
 (i.e. "official excel files") as country by country and year by year excel files and sheets. 
 
 Currently it is possible to gather data concerning LULUCF land use categories,
-harvested wood products and LULUCF summmary. The levels used are the one that are
-common to all parties. The collected data is provided as is, no further analysis or examination is done.
+harvested wood products and LULUCF summmary. The reporting categories or subcategories used are the ones 
+that are common to all parties. The collected data is provided as is, no further analysis or examination is done.
 
 ## euco2.py
 The scripts collects net emissions from the Table4.A to Table4.F. This amounts to data for LULUCF
