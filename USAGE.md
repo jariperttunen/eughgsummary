@@ -48,7 +48,7 @@ To select countries one of the following must be used:
 
 ## lulcrftotal.py
 The script collects net emissions from Table 4 for Total LLULUCF, Forest land, Cropland, Grassland,
-etlands, Settlements, Other land, HWP and Other (rows A-F). The unit is CO2eq, i.e. CH4 and N2O are
+Wetlands, Settlements, Other land, HWP and Other (rows A-F). The unit is CO2eq, i.e. CH4 and N2O are
 changed into CO2eq with their Global warming potentials (GWP). The result is a single file
 containing sheets for items collected from Table 4.
 
