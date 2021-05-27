@@ -119,9 +119,10 @@ if __name__ == "__main__":
     parser.add_argument("-s","--start",dest="f2",required=True,help="Inventory start year (usually 1990)")
     parser.add_argument("-e","--end",dest="f3",required=True,help="Inventory end year")
     group=parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--eu",action="store_true",dest="f4",default=False,help="EU countries")
-    group.add_argument("-a","--all",action="store_true",dest="f5",default=False,help="All countries (EU+others")
-    group.add_argument("-c","--countries",dest="f6",type=str,nargs='+',help="List of countries")
+    group.add_argument("--eu",action="store_true",dest="eu",default=False,help="EU countries")
+    group.add_argument("--euplus",action="store_true",dest="euplus",default=False,help="EU countries plus GBR, ISL and NOR")
+    group.add_argument("-a","--all",action="store_true",dest="all",default=False,help="All countries (EU+others")
+    group.add_argument("-c","--countries",dest="country",type=str,nargs='+',help="List of countries")
 
     args = parser.parse_args()
     directory=args.f1
@@ -131,21 +132,25 @@ if __name__ == "__main__":
     inventory_end=int(args.f3)
     print("Inventory end",inventory_end)
     file_prefix = 'EU'
-    if args.f4:
+    if args.eu:
         print("Using EU  countries")
         countryls=euls
-    elif args.f5:
+    elif args.euplus:
+        print("Using EU  countries plus GBR, ISL, NOR")
+        countryls=euls
+        file_prefix = 'EU_GBR_ISL_NOR'
+    elif args.all:
         print("Using all countries")
         countryls = euls+noneuls
         file_prefix='EU_and_Others'
     else:
-        print("Using countries", args.f6) 
-        countryls=args.f6
+        print("Using countries", args.country) 
+        countryls=args.country
         file_prefix=countryls[0]
         for country in countryls[1:]:
             file_prefix = file_prefix+"_"+country
 
-    writer = pd.ExcelWriter(file_prefix+'_Table4.Gs1_with_ApproachA.xlsx',
+    writer = pd.ExcelWriter(file_prefix+'_Table4.Gs1_HWP_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
                         engine='xlsxwriter')
     #1. Table4G.s1
     CreateHWPExcelSheet(writer,args.f1,countryls,sheetls[0],table4Gs1_row_ls,5,table4Gs1_sheet_name_ls,inventory_start,inventory_end)
