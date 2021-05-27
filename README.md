@@ -10,8 +10,8 @@ common to all parties. The collected data is provided as is, no further analysis
 
 ## euco2.py
 The scripts collects net emissions from the Table4.A to Table4.F. This amounts to data for LULUCF
-land use, land-use change and forestry. The output is a single file of net emissions for all Tables
-and one file of net emissions for each of the Tables A-F.
+land use, land-use change and forestry. The output is a single file of all net emissions collected
+and one file of net emissions collected for each of the Table4 A-F.
 
 The command line arguments are:
 + -d, The main directory for the CRF Reporting tables. It is assumed the excel files are
@@ -21,8 +21,13 @@ The command line arguments are:
 
 To select countries one of the following must be used:
 + --eu, EU countries.
++ --eu+ EU plus GBR, ISL and NOR
 + -a, All reporting countries.
 + -c, List of country acronyms separated by spaces.
+
+Example with EU countries and GBR, ISL and NOR. The CRF Reporting tables are in /data/d4/projects/khk/CRF_vertailu/
+for each country and include years 1990-2019.
++ python euco2.py -d /data/d4/projects/khk/CRF_vertailu/ --euplus  -s 1990 -e 2019
 
 ## euco2hwp.py
 The script collects net emissions Harvested wood products (HWP) data for Total HWP, Total HWP Domestic
@@ -59,7 +64,7 @@ To select countries one of the following must be used:
 + -c, List of country acronyms separated by spaces,
 
 To define GWP to be used:
-+ --GWP, possible values are GWP4 (default, used in GHG) or GWP5.
++ --GWP, possible values are AR4 (default, used in GHG) or AR5.
 
 ## Python virtual environment
 
