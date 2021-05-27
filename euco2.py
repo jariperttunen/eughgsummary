@@ -111,9 +111,10 @@ if __name__ == "__main__":
     parser.add_argument("-s","--start",dest="f2",required=True,help="Inventory start year (usually 1990)")
     parser.add_argument("-e","--end",dest="f3",required=True,help="Inventory end year")
     group=parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--eu",action="store_true",dest="f4",default=False,help="EU countries")
-    group.add_argument("-a","--all",action="store_true",dest="f5",default=False,help="All countries (EU+others")
-    group.add_argument("-c","--countries",dest="f6",type=str,nargs='+',help="List of countries from the official acronyms separated by spaces")
+    group.add_argument("--eu",action="store_true",dest="eu",default=False,help="EU countries")
+    group.add_argument("--euplus",action="store_true",dest="euplus",default=False,help="EU countries plus GBR, ISL, NOR")
+    group.add_argument("-a","--all",action="store_true",dest="all",default=False,help="All countries (EU+others")
+    group.add_argument("-c","--countries",dest="country",type=str,nargs='+',help="List of countries with the official acronyms separated by spaces")
 
     args = parser.parse_args()
     directory=args.f1
@@ -123,16 +124,20 @@ if __name__ == "__main__":
     inventory_end=int(args.f3)
     print("Inventory end",inventory_end)
     file_prefix = 'EU'
-    if args.f4:
+    if args.eu:
         print("Using EU  countries")
         countryls=euls
-    elif args.f5:
+    if args.euplus:
+        print("Using EU countries plus GBR, ISL and NOR")
+        countryls=euls+['GBR','ISL','NOR']
+        file_prefix='EU_GBR_ISL_NOR'
+    elif args.all:
         print("Using all countries")
         countryls = euls+noneuls
         file_prefix='EU_and_Others'
     else:
-        print("Using countries", args.f6) 
-        countryls=args.f6
+        print("Using countries", args.countries) 
+        countryls=args.country
         file_prefix=countryls[0]
         for country in countryls[1:]:
             file_prefix = file_prefix+"_"+country
@@ -141,44 +146,44 @@ if __name__ == "__main__":
     writer = pd.ExcelWriter(file_prefix+'_NetCO2_emissions_removals_'+str(inventory_start)+'_'+str(inventory_end)+'_all.xlsx',
                             engine='xlsxwriter')
     #Table 4 A Total forest land
-    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[0]+'Total_FL_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[0]+'_Total_FL_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4A_total_FL_ls,table4A_total_FL_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[0],row_name,19,sheet_name,inventory_start,inventory_end)
     writer2.save()
     #1. Table 4.A
-    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[0]+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[0]+'_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4A_row_ls,table4A_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[0],row_name,19,sheet_name,inventory_start,inventory_end)
     writer2.save()
     #2. Table 4.B
-    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[1]+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[1]+'_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4B_row_ls,table4B_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[1],row_name,17,sheet_name,inventory_start,inventory_end)
     writer2.save()
     #3. Table 4.C
-    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[2]+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[2]+'_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4C_row_ls,table4C_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[2],row_name,17,sheet_name,inventory_start,inventory_end)
     writer2.save()
 
     #4. Table 4.D
-    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[3]+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[3]+'_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4D_row_ls,table4D_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[3],row_name,17,sheet_name,inventory_start,inventory_end)
     writer2.save()
     #5. Table 4.E
-    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[4]+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[4]+'_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4E_row_ls,table4E_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[4],row_name,17,sheet_name,inventory_start,inventory_end)
     writer2.save()
     #6. Table 4.F
-    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[5]+'.xlsx',
+    writer2 = pd.ExcelWriter(file_prefix+'_NetCO2_'+sheetls[5]+'_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4F_row_ls,table4F_sheet_name_ls):
         CreateExcelSheet(writer,writer2,directory,countryls,sheetls[5],row_name,17,sheet_name,inventory_start,inventory_end)

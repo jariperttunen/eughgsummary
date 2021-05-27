@@ -107,18 +107,19 @@ if __name__ == "__main__":
     parser.add_argument("-s","--start",type=int,dest="f2",required=True,help="Inventory start year (usually 1990)")
     parser.add_argument("-e","--end",type=int,dest="f3",required=True,help="Inventory end year")
     group=parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--eu",action="store_true",dest="f4",default=False,help="EU countries")
-    group.add_argument("-a","--all",action="store_true",dest="f5",default=False,help="All countries (EU+others")
-    group.add_argument("-c","--countries",dest="f6",type=str,nargs='+',help="List of countries from the official acronyms separated by spaces")
+    group.add_argument("--eu",action="store_true",dest="eu",default=False,help="EU countries")
+    group.add_argument("--euplus",action="store_true",dest="euplus",default=False,help="EU countries plus GBR, ISL, NOR")
+    group.add_argument("-a","--all",action="store_true",dest="all",default=False,help="All countries (EU+others")
+    group.add_argument("-c","--countries",dest="country",type=str,nargs='+',help="List of countries from the official acronyms separated by spaces")
     parser.add_argument('--GWP',type=str,dest='gwp',default="AR4",help="Global warming potential, AR4 (GHG inventory, default) or AR5 (e.g. scenarios)")
     args = parser.parse_args()
-    #ARW4, GHG default
+    #AR4, GHG default
     ch4co2eq = 25 
     n2oco2eq = 298 
     if args.gwp == 'AR5':
-       ch4co2eq = 28
-       n2oco2eq = 265
-
+        ch4co2eq = 28
+        n2oco2eq = 265
+    print("Using GWP:", ch4co2eq,n2oco2eq)
     directory=args.f1
     print("Inventory Parties directory",directory)
     inventory_start=int(args.f2)
@@ -127,23 +128,27 @@ if __name__ == "__main__":
     print("Inventory end",inventory_end)
     file_prefix = 'EU'
     countryls=[]
-    if args.f4:
+    if args.eu:
         print("Using EU  countries")
         countryls=euls
-    elif args.f5:
+    if args.euplus:
+        print("Using EU  countries plus GBR, ISL and NOR")
+        countryls=euls
+        file_prefix = 'EU_GBR_ISL_NOR'
+    elif args.all:
         print("Using all countries")
         countryls = allcountryls
         file_prefix='EU_and_Others'
-    if args.f6:
+    if args.country:
         print("Using countries", args.f6) 
         countryls=countryls+args.f6
         file_prefix=file_prefix+'_'+args.f6[0]
         for country in args.f6[1:]:
             file_prefix = file_prefix+"_"+country
 
-    writer = pd.ExcelWriter(file_prefix+'_Table4TotalLULUCF_CO2eq.xlsx',
+    writer = pd.ExcelWriter(file_prefix+'_Table4TotalLULUCF_CO2eq_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
                             engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4_row_substr_ls,table4_sheet_name_ls):
-        CreateLULUCFTotalSheet(writer,args.f1,countryls,sheetls[0],row_name,sheet_name,args.f2,args.f3,ch4co2eq,n2oco2eq)
+        CreateLULUCFTotalSheet(writer,args.f1,countryls,sheetls[0],row_name,sheet_name,inventory_start,inventory_end,ch4co2eq,n2oco2eq)
     print("Writing file",file_prefix+'_Table4TotalLULUCF_CO2eq.xlsx')
     writer.save()
