@@ -63,7 +63,7 @@ To select countries one of the following must be used:
 + -c: List of country acronyms separated by spaces.
 
 To define GWP to be used:
-+ --GW: possible values are AR4 (default, used in GHG) or AR5.
++ --GWP: possible values are AR4 (default, used in GHG) or AR5.
 
 ## Examples
 
@@ -72,7 +72,7 @@ In general the `-h` option for python scripts gives help for command line argume
 
 ## Python virtual environment
 
-The requirements.txt  contains information for pip to install python packages
+The `requirements.txt`  contains information for pip to install python packages
 required by eughgsummary. First, create python virtual environment and then
 install the packages:
 + pip  install -r requirements.txt
