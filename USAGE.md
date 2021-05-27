@@ -44,7 +44,7 @@ To select countries one of the following must be used:
 + -c: List of country acronyms separated by spaces.
 
 ## lulcrftotal.py
-The script collects sum of CO<sub>2</sub>, CH<sub>4</sub> and N<sub>2</sub>O net emissions from Table 4 for 
+The script collects sums of CO<sub>2</sub>, CH<sub>4</sub> and N<sub>2</sub>O net emissions from Table 4 for 
 Total LULUCF, Forest land, Cropland, Grassland, Wetlands, Settlements, Other land, HWP and Other (rows A-F). 
 The unit is CO<sub>2</sub>eq, i.e. CH<sub>4</sub> and N<sub>2</sub>O  net emissions are changed to CO<sub>2</sub>eq 
 with their Global warming potentials (GWP).  The output is a single file containing sheets 
