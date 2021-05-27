@@ -60,10 +60,10 @@ To select countries one of the following must be used:
 + --eu: EU countries.
 + --euplus: EU plus GBR, ISL and NOR
 + -a: All reporting countries.
-+ -c: List of country acronyms separated by spaces,
++ -c: List of country acronyms separated by spaces.
 
 To define GWP to be used:
-+ --GWP, possible values are AR4 (default, used in GHG) or AR5.
++ --GW: possible values are AR4 (default, used in GHG) or AR5.
 
 ## Examples
 
