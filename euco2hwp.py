@@ -4,19 +4,13 @@ import math
 import numbers
 import glob
 import argparse
+from countrylist import euls,euplusls,noneuls,allcountryls
 
 directory='EU-MS/2017'
 inventory_start=1990
 inventory_end=2015
 
 #List of excel sheets needed
-euls=['FIN','AUT','BEL','BGR','CYP','CZE','DEU',
-      'DNK','ESP','EST','FRA','GRC','HRV',
-      'HUN','IRL','ITA','LTU','LUX','LVA',
-      'MLT','NLD','POL','PRT','ROU','SVK',
-      'SVN','SWE']
-noneuls=['CAN','CHE','EUA','GBR','ISL','JPN','LIE','MCO','NOR','RUS','TUR','USA']
-countryls=euls+noneuls
 sheetls = ['Table4.Gs1']
 table4Gs1_sheet_name_ls=['Table4.Gs1 Total HWP','Table4.Gs1 Total HWP Domestic','Table4.Gs1 Total HWP Exported']
 table4Gs1_row_ls=['TOTAL HWP','Total']
@@ -137,7 +131,7 @@ if __name__ == "__main__":
         countryls=euls
     elif args.euplus:
         print("Using EU  countries plus GBR, ISL, NOR")
-        countryls=euls
+        countryls=euplusls
         file_prefix = 'EU_GBR_ISL_NOR'
     elif args.all:
         print("Using all countries")

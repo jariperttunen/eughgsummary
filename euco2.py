@@ -5,6 +5,7 @@ import numbers
 import glob
 import xlsxwriter
 import argparse
+from countrylist import euls,euplusls,noneuls,allcountryls
 
 directory='EU-MS/2017'
 inventory_start=1990
@@ -12,13 +13,6 @@ inventory_end=2015
 #List of excel sheets needed
 sheetls = ['Table4.A','Table4.B','Table4.C',
            'Table4.D','Table4.E','Table4.F']
-euls=['FIN','AUT','BEL','BGR','CYP','CZE','DEU',
-      'DNK','ESP','EST','FRA','GRC','HRV',
-      'HUN','IRL','ITA','LTU','LUX','LVA',
-      'MLT','NLD','POL','PRT','ROU','SVK',
-      'SVN','SWE']
-noneuls=['CAN','CHE','EUA','GBR','ISL','JPN','LIE','MCO','NOR','RUS','TUR','USA']
-countryls=euls+noneuls
 
 table4A_total_FL_ls = ['A. Total forest land']
 table4A_total_FL_sheet_name_ls = ['4A Total FL']
@@ -129,11 +123,11 @@ if __name__ == "__main__":
         countryls=euls
     if args.euplus:
         print("Using EU countries plus GBR, ISL and NOR")
-        countryls=euls+['GBR','ISL','NOR']
+        countryls=euplusls
         file_prefix='EU_GBR_ISL_NOR'
     elif args.all:
         print("Using all countries")
-        countryls = euls+noneuls
+        countryls = allcountryls
         file_prefix='EU_and_Others'
     else:
         print("Using countries", args.countries) 

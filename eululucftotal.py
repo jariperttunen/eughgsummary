@@ -4,7 +4,7 @@ import pathlib
 import glob
 import pandas as pd
 import numpy as np
-from countrylist import euls,noneuls,allcountryls
+from countrylist import euls,euplusls,noneuls,allcountryls
 
 #LULUCF Total table name
 sheetls = ['Table4']
@@ -131,19 +131,19 @@ if __name__ == "__main__":
     if args.eu:
         print("Using EU  countries")
         countryls=euls
-    if args.euplus:
+    elif args.euplus:
         print("Using EU  countries plus GBR, ISL and NOR")
-        countryls=euls
+        countryls=euplusls
         file_prefix = 'EU_GBR_ISL_NOR'
     elif args.all:
         print("Using all countries")
         countryls = allcountryls
         file_prefix='EU_and_Others'
-    if args.country:
-        print("Using countries", args.f6) 
-        countryls=countryls+args.f6
-        file_prefix=file_prefix+'_'+args.f6[0]
-        for country in args.f6[1:]:
+    else:
+        print("Using countries", args.country) 
+        countryls=args.country
+        file_prefix=args.country[0]
+        for country in args.country[1:]:
             file_prefix = file_prefix+"_"+country
 
     writer = pd.ExcelWriter(file_prefix+'_Table4TotalLULUCF_CO2eq_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
