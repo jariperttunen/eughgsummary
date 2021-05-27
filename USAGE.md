@@ -44,10 +44,11 @@ To select countries one of the following must be used:
 + -c: List of country acronyms separated by spaces.
 
 ## lulcrftotal.py
-The script collects net emissions from Table 4 for Total LLULUCF, Forest land, Cropland, Grassland,
-Wetlands, Settlements, Other land, HWP and Other (rows A-F). The unit is CO2eq, i.e. CH4 and N2O 
-net emissions are changed to CO2eq with their Global warming potentials (GWP). 
-The output is a single file containing sheets for items collected from Table 4.
+The script collects sum of CO<sub>2</sub>, CH<sub>4</sub> and N<sub>2</sub>O net emissions from Table 4 for 
+Total LULUCF, Forest land, Cropland, Grassland, Wetlands, Settlements, Other land, HWP and Other (rows A-F). 
+The unit is CO<sub>2</sub>eq, i.e. CH<sub>4</sub> and N<sub>2</sub>O  net emissions are changed to CO<sub>2</sub>eq 
+with their Global warming potentials (GWP).  The output is a single file containing sheets 
+for items collected from Table 4.
 
 The command line arguments are:
 + -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
