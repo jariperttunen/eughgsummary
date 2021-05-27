@@ -25,10 +25,6 @@ To select countries one of the following must be used:
 + -a, All reporting countries.
 + -c, List of country acronyms separated by spaces.
 
-Example with EU countries and GBR, ISL and NOR. The CRF Reporting tables are in /data/d4/projects/khk/CRF_vertailu/
-for each country and include years 1990-2019.
-+ python euco2.py -d /data/d4/projects/khk/CRF_vertailu/ --euplus  -s 1990 -e 2019
-
 ## euco2hwp.py
 The script collects net emissions Harvested wood products (HWP) data for Total HWP, Total HWP Domestic
 and Total HWP Exported from the Table4.Gs1. Note a country may have reported Total HWP only.
@@ -68,6 +64,9 @@ To select countries one of the following must be used:
 To define GWP to be used:
 + --GWP, possible values are AR4 (default, used in GHG) or AR5.
 
+## Examples
+
+See `eughgsummary.slurm` for examples for each of the tree python scripts.
 ## Python virtual environment
 
 The requirements.txt  contains information for pip to install python packages
@@ -75,4 +74,4 @@ required by eughgsummary. First, create python virtual environment and then
 install the packages:
 + pip  install -r requirements.txt
 
-You may need to tell the proxy server for pip.
+You may need to tell the proxy server for `pip`.
