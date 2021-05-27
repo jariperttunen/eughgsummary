@@ -1,19 +1,71 @@
-# eughgsummary
-Read CRFReporter files and crete summary for EU countries.
-The main file is euco2.py
-Command line is (for example):
-python euco2.py -d EU-MS/2017 -s 1990 -e 2015 -a 
+# Create GHG summaries for selected countries from CRF Reporting tables.
 
-As usual python euco2.py -h gives the help.
+To alleviate examination and comparison of GHG net emissions in reporting countries
+eughgsummary contains three scripts to collect and organise data from annual CRF Reporting tables
+(i.e. "official excel files") as country by country and year by year excel files and sheets. 
 
-EU-MS/2017 is the directory for the downloaded excel files
+Currently it is possible to gather data concerning LULUCF land use categories,
+harvested wood products and LULUCF summmary. The levels used are the one that are
+common to all parties. The collected data is provided as is, no further analysis or examination is done.
 
-To setup python3 virtual environment use the requirements.txt file.
-The proxy option tells the (Luke) proxy server if needed.
+## euco2.py
+The scripts collects net emissions from the Table4.A to Table4.F. This amounts to data for LULUCF
+land use, land-use change and forestry. The output is a single file of net emissions for all Tables
+and one file of net emissions for each of the Tables A-F.
 
-python3 -m venv eughg
+The command line arguments are:
++ -d, The main directory for the CRF Reporting tables. It is assumed the excel files are
+      organised in this directory by countries denoted with three letter acronyms.
++ -s, Start year of the inventory.
++ -e, End year of the inventory.
 
-source eughg/bin/activate
+To select countries one of the following must be used:
++ --eu, EU countries.
++ -a, All reporting countries.
++ -c, List of country acronyms separated by spaces.
 
-pip --proxy proxy_server install -r requirements.txt
+## euco2hwp.py
+The script collects net emissions Harvested wood products (HWP) data for Total HWP, Total HWP Domestic
+and Total HWP Exported from the Table4.Gs1. Note a country may have reported Total HWP only.
+Whether Apporoach A or B is used is not explicitely mentioned. The output is a single
+file with three sheets for HWP net emissions.
 
+The command line arguments are:
++ -d, The main directory for the CRF Reporting tables. It is assumed the excel files are
+      organised in this directory by countries denoted with three letter acronyms.
++ -s, Start year of the inventory.
++ -e, End year of the inventory.
+
+To select countries one of the following must be used:
++ --eu, EU countries.
++ -a, All reporting countries.
++ -c, List of country acronyms separated by spaces.
+
+## lulcrftotal.py
+The script collects net emissions from Table 4 for Total LLULUCF, Forest land, Cropland, Grassland,
+etlands, Settlements, Other land, HWP and Other (rows A-F). The unit is CO2eq, i.e. CH4 and N2O are
+changed into CO2eq with their Global warming potentials (GWP). The result is a single file
+containing sheets for items collected from Table 4.
+
+The command line arguments are:
++ -d, The main directory for the CRF Reporting tables. It is assumed the excel files are
+      organised in this directory by countries denoted with three letter acronyms.
++ -s, Start year of the inventory.
++ -e, End year of the inventory.
+
+To select countries one of the following must be used:
++ --eu, EU countries.
++ -a, All reporting countries.
++ -c, List of country acronyms separated by spaces,
+
+To define GWP to be used:
++ --GWP, possible values are GWP4 (default, used in GHG) or GWP5.
+
+## Python virtual environment
+
+The requirements.txt  contains information for pip to install python packages
+required by eughgsummary. First, create python virtual environment and then
+install the packages:
++ pip  install -r requirements.txt
+
+You may need to tell the proxy server for pip.
