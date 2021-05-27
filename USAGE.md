@@ -14,16 +14,16 @@ land use, land-use change and forestry. The output is a single file of all net e
 and one file of net emissions collected for each of the Table4 A-F.
 
 The command line arguments are:
-+ -d, The main directory for the CRF Reporting tables. It is assumed the excel files are
++ -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
       organised in this directory by countries denoted with three letter acronyms.
-+ -s, Start year of the inventory.
-+ -e, End year of the inventory.
++ -s: Start year of the inventory.
++ -e: End year of the inventory.
 
 To select countries one of the following must be used:
-+ --eu, EU countries.
-+ --euplus, EU plus GBR, ISL and NOR
-+ -a, All reporting countries.
-+ -c, List of country acronyms separated by spaces.
++ --eu: EU countries.
++ --euplus: EU plus GBR, ISL and NOR
++ -a: All reporting countries.
++ -c: List of country acronyms separated by spaces.
 
 ## euco2hwp.py
 The script collects net emissions Harvested wood products (HWP) data for Total HWP, Total HWP Domestic
@@ -32,16 +32,16 @@ Whether Apporoach A or B is used is not explicitely mentioned. The output is a s
 file with three sheets for HWP net emissions.
 
 The command line arguments are:
-+ -d, The main directory for the CRF Reporting tables. It is assumed the excel files are
++ -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
       organised in this directory by countries denoted with three letter acronyms.
-+ -s, Start year of the inventory.
-+ -e, End year of the inventory.
++ -s: Start year of the inventory.
++ -e: End year of the inventory.
 
 To select countries one of the following must be used:
-+ --eu, EU countries.
-+ --euplus, EU plus GBR, ISL and NOR
-+ -a, All reporting countries.
-+ -c, List of country acronyms separated by spaces.
++ --eu: EU countries.
++ --euplus: EU plus GBR, ISL and NOR
++ -a: All reporting countries.
++ -c: List of country acronyms separated by spaces.
 
 ## lulcrftotal.py
 The script collects net emissions from Table 4 for Total LLULUCF, Forest land, Cropland, Grassland,
@@ -50,16 +50,16 @@ changed into CO2eq with their Global warming potentials (GWP). The result is a s
 containing sheets for items collected from Table 4.
 
 The command line arguments are:
-+ -d, The main directory for the CRF Reporting tables. It is assumed the excel files are
++ -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
       organised in this directory by countries denoted with three letter acronyms.
-+ -s, Start year of the inventory.
-+ -e, End year of the inventory.
++ -s: Start year of the inventory.
++ -e: End year of the inventory.
 
 To select countries one of the following must be used:
-+ --eu, EU countries.
-+ --euplus, EU plus GBR, ISL and NOR
-+ -a, All reporting countries.
-+ -c, List of country acronyms separated by spaces,
++ --eu: EU countries.
++ --euplus: EU plus GBR, ISL and NOR
++ -a: All reporting countries.
++ -c: List of country acronyms separated by spaces,
 
 To define GWP to be used:
 + --GWP, possible values are AR4 (default, used in GHG) or AR5.
@@ -67,6 +67,8 @@ To define GWP to be used:
 ## Examples
 
 See `eughgsummary.slurm` for examples for each of the tree python scripts.
+In general the `-h` option for python scripts gives help for command line arguments.
+
 ## Python virtual environment
 
 The requirements.txt  contains information for pip to install python packages
