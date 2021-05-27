@@ -21,7 +21,7 @@ The command line arguments are:
 
 To select countries one of the following must be used:
 + --eu, EU countries.
-+ --eu+ EU plus GBR, ISL and NOR
++ --euplus EU plus GBR, ISL and NOR
 + -a, All reporting countries.
 + -c, List of country acronyms separated by spaces.
 
@@ -43,6 +43,7 @@ The command line arguments are:
 
 To select countries one of the following must be used:
 + --eu, EU countries.
++ --euplus EU plus GBR, ISL and NOR
 + -a, All reporting countries.
 + -c, List of country acronyms separated by spaces.
 
@@ -60,6 +61,7 @@ The command line arguments are:
 
 To select countries one of the following must be used:
 + --eu, EU countries.
++ --euplus EU plus GBR, ISL and NOR
 + -a, All reporting countries.
 + -c, List of country acronyms separated by spaces,
 
