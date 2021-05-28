@@ -46,10 +46,10 @@ To select countries one of the following must be used:
 
 ## eululucftotal.py
 The script collects sums of CO<sub>2</sub>, CH<sub>4</sub> and N<sub>2</sub>O net emissions from Table 4 for 
-Total LULUCF, Forest land, Cropland, Grassland, Wetlands, Settlements, Other land, HWP and Other (rows A, B, C, D, Eand F). 
-The unit is CO<sub>2</sub>eq, i.e. CH<sub>4</sub> and N<sub>2</sub>O  net emissions are changed to CO<sub>2</sub>eq 
-with their Global warming potentials (GWP).  The output is a single file containing sheets 
-for items collected from Table 4.
+Total LULUCF and categories Forest land, Cropland, Grassland, Wetlands, Settlements, Other land, HWP and
+Other (rows A, B, C, D, E and F).  The unit is CO<sub>2</sub>eq, i.e. CH<sub>4</sub> and N<sub>2</sub>O
+net emissions are changed to CO<sub>2</sub>eq  with their Global warming potentials (GWP).
+The output is a single file containing sheets for items collected from Table 4.
 
 
 The command line arguments are:
@@ -75,7 +75,7 @@ In general the `-h` option for python scripts gives help for command line argume
 ## Python virtual environment
 
 The `requirements.txt`  contains information for pip to install python packages
-required by eughgsummary. First, create python virtual environment and then
+required by eughgsummary. First, create python virtual environmen, activate it and
 install the packages:
 + pip  install -r requirements.txt
 
