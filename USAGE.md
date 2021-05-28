@@ -70,7 +70,7 @@ To define GWP to be used:
 ## Examples
 
 See `eughgsummary.slurm` for examples for each of the tree python scripts.
-In general the `-h` option for python scripts gives help for command line arguments.
+The `-h` option for python scripts gives help for command line arguments.
 
 ## Python virtual environment
 
