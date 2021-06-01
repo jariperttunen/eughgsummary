@@ -81,7 +81,7 @@ The `-h` option for python scripts gives help for command line arguments.
 ## Python virtual environment
 
 The `requirements.txt`  contains information for pip to install python packages
-required by eughgsummary. First, create python virtual environmen, activate it and
+required by eughgsummary. First, create python virtual environment, activate it and
 install the packages:
 + pip  install -r requirements.txt
 
