@@ -1,4 +1,4 @@
-# Create GHG summaries for selected countries from CRF Reporting tables.
+# Create GHG summaries from CRF Reporting tables.
 
 To alleviate examination and comparison of GHG net emissions in reporting countries
 eughgsummary contains three scripts to collect and organise data from annual CRF Reporting tables
