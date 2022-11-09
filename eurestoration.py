@@ -34,7 +34,7 @@ columns_lss = [Table4A_columns_ls,Table4B_columns_ls,Table4C_columns_ls,Table4D_
 #Units will be as in CRFReporter excel (no conversions)
 def CreateEUTable4Total(writer,data_dir,countryls:list,inv_start:int,inv_end:int):
     for country in countryls:
-        excelfilels=sorted(glob.glob(data_dir+'/'+country+'*/*.xlsx'))
+        excelfilels=sorted(glob.glob(data_dir+'/'+country+'/'+country+'*.xlsx'))
         for (sheet,row_name,columns_ls) in zip(sheet_ls,substr_ls,columns_lss):
             print(country,sheet)
             data_row_lss=[]
