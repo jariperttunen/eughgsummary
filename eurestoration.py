@@ -7,8 +7,11 @@ import numpy as np
 from countrylist import euls,euplusls,noneuls,allcountryls
 import EUutility
 
+pd.set_option('display.max_colwidth', None)
+
 #Excel sheets needed
 sheet_ls = ['Table4.A','Table4.B','Table4.C','Table4.D']
+sheet_ext_ls = [' FL',' CL',' GL',' WL']
 #Search dataframe row with these names
 substr_ls = ['A. Total forest land','B. Total Cropland','C. Total grassland','D. Total wetlands']
 #Column names in the resulting excel. Note a bit different sheet structure.
@@ -25,7 +28,7 @@ Table4D_columns_ls = Table4B_columns_ls
 columns_lss = [Table4A_columns_ls,Table4B_columns_ls,Table4C_columns_ls,Table4D_columns_ls]
 
 
-def CreateEUTable4Total(writer,data_dir,countryls:list,inv_start:int,inv_end:int):
+def CreateEUTable4Total1(writer,data_dir,countryls:list,inv_start:int,inv_end:int):
     """
     Collect row 10 from CRFReporter Excel files Table4 A,B,C and D 
     \pre It is assumed that immediate subdirectory of data_dir contains country directories denoted by three letter acronym.
@@ -68,6 +71,57 @@ def CreateEUTable4Total(writer,data_dir,countryls:list,inv_start:int,inv_end:int
         df.to_excel(writer,sheet_name=country+sheet,na_rep='NaN')
     return writer
 
+def CreateEUTable4Total2(writer,data_dir,countryls:list,inv_start:int,inv_end:int):
+    """
+    Collect row 10 from CRFReporter Excel files Table4 A,B,C and D 
+    \pre It is assumed that immediate subdirectory of data_dir contains country directories denoted by three letter acronym.
+    For each Table4.[A,B,C,D]
+       For each country
+          For each each year
+            Collect row 10 (Total) to dataframe from CRFReporter Excel files
+       Create excel sheet
+    Save Excel file
+    \param writer  Excel writer
+    \param data_dir Data location
+    \param countryls List of countries
+    \param inv_start Inventroy start year, 1990
+    \param inv_end Inventory end year
+    \return the Excle writer with data
+    \post Units are as in Excel files (no conversion to CO2)
+    """
+    for (sheet,sheet_ext,row_name,columns_ls) in zip(sheet_ls,sheet_ext_ls,substr_ls,columns_lss):
+        df_merge = pd.DataFrame()
+        for country in countryls:
+            excelfilels=sorted(glob.glob(data_dir+'/'+country+'/'+country+'*.xlsx'))
+            print(country,sheet)
+            data_row_lss=[]
+            for excel_file in excelfilels:
+                xlsx = pd.ExcelFile(excel_file)
+                df = pd.read_excel(xlsx,sheet,keep_default_na=False,na_values=['MISSING_VALUE'])
+                #Find row by its name as Dataframe
+                row_df = df[df[df.columns[0]].str.contains(substr_ls[substr_ls.index(row_name)])==True]
+                #Row as Series
+                row_s = row_df.iloc[0,:]
+                #Row as list
+                row_ls = list(row_s)
+                #Delete two first element: Title and Subdivision in CRFReporter excel
+                del row_ls[0:2]
+                #Append one year data
+                data_row_lss.append(row_ls)
+            #Data collected for one country, create data frame
+            df = pd.DataFrame(data_row_lss)
+            #Insert inventory years
+            df.insert(0,"Year",list(range(inv_start,inv_end+1)))
+            #Set the country code as index
+            df.index = [country]*len(range(inv_start,inv_end+1))
+            #Merge dataframes
+            df_merge=df_merge.append(df)
+        #Title row
+        df_merge.columns = ['Year']+columns_ls
+        #All countries for one sheet done
+        df_merge.to_excel(writer,sheet_name=sheet+sheet_ext,na_rep='NaN')
+    return writer
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d","--directory",dest="f1",required=True,help="Inventory Parties Directory")
@@ -107,7 +161,7 @@ if __name__ == "__main__":
     file_name = file_prefix+'_Restoration_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx'
     countryls = sorted(countryls)
     writer = pd.ExcelWriter(file_name,engine='xlsxwriter')
-    writer =  CreateEUTable4Total(writer,directory,countryls,inventory_start,inventory_end)
+    writer =  CreateEUTable4Total2(writer,directory,countryls,inventory_start,inventory_end)
     print("Writing results to:",file_name)
     writer.save()
     print("Done")
