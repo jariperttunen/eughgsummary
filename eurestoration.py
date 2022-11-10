@@ -24,38 +24,48 @@ Table4C_columns_ls = Table4B_columns_ls
 Table4D_columns_ls = Table4B_columns_ls
 columns_lss = [Table4A_columns_ls,Table4B_columns_ls,Table4C_columns_ls,Table4D_columns_ls]
 
-#In the first phase
-#For each country
-#  For each Table4.x
-#   For each each year
-#     Collect row 10 (Total) to dataframe 
-#   Create excel sheet 
-#Save excel file
-#Units will be as in CRFReporter excel (no conversions)
+
 def CreateEUTable4Total(writer,data_dir,countryls:list,inv_start:int,inv_end:int):
-    for country in countryls:
-        excelfilels=sorted(glob.glob(data_dir+'/'+country+'/'+country+'*.xlsx'))
-        for (sheet,row_name,columns_ls) in zip(sheet_ls,substr_ls,columns_lss):
-            print(country,sheet)
-            data_row_lss=[]
-            for excel_file in excelfilels:
-                xlsx = pd.ExcelFile(excel_file)
-                df = pd.read_excel(xlsx,sheet,keep_default_na=False,na_values=['MISSING_VALUE'])
-                #Find row by its name as Dataframe
-                row_df = df[df[df.columns[0]].str.contains(substr_ls[substr_ls.index(row_name)])==True]
-                #Row as Series
-                row_s = row_df.iloc[0,:]
-                #Row as list
-                row_ls = list(row_s)
-                #Delete two first element: Title and Subdivision in CRFReporter excel
-                del row_ls[0:2]
-                #Append one year data
-                data_row_lss.append(row_ls)
+    """
+    Collect row 10 from CRFReporter Excel files Table4 A,B,C and D 
+    \pre It is assumed that immediate subdirectory of data_dir contains country directories denoted by three letter acronym.
+    For each country
+       For each Table4.[A,B,C,D]
+          For each each year
+            Collect row 10 (Total) to dataframe from CRFReporter Excel files
+          Create excel sheet
+    Save Excel file
+    \param writer  Excel writer
+    \param data_dir Data location
+    \param countryls List of countries
+    \param inv_start Inventroy start year, 1990
+    \param inv_end Inventory end year
+    \return the Excle writer with data
+    \post Units are as in Excel files (no conversion to CO2)
+    """
+
+    excelfilels=sorted(glob.glob(data_dir+'/'+country+'/'+country+'*.xlsx'))
+    for (sheet,row_name,columns_ls) in zip(sheet_ls,substr_ls,columns_lss):
+        print(country,sheet)
+        data_row_lss=[]
+        for excel_file in excelfilels:
+            xlsx = pd.ExcelFile(excel_file)
+            df = pd.read_excel(xlsx,sheet,keep_default_na=False,na_values=['MISSING_VALUE'])
+            #Find row by its name as Dataframe
+            row_df = df[df[df.columns[0]].str.contains(substr_ls[substr_ls.index(row_name)])==True]
+            #Row as Series
+            row_s = row_df.iloc[0,:]
+            #Row as list
+            row_ls = list(row_s)
+            #Delete two first element: Title and Subdivision in CRFReporter excel
+            del row_ls[0:2]
+            #Append one year data
+            data_row_lss.append(row_ls)
             #Data collected for one sheet, create data frame
-            df = pd.DataFrame(data_row_lss)
-            df.columns=columns_ls
-            df.index=list(range(inv_start,(inv_end+1)))
-            df.to_excel(writer,sheet_name=country+sheet,na_rep='NaN')
+        df = pd.DataFrame(data_row_lss)
+        df.columns=columns_ls
+        df.index=list(range(inv_start,(inv_end+1)))
+        df.to_excel(writer,sheet_name=country+sheet,na_rep='NaN')
     return writer
 
 if __name__ == "__main__":
