@@ -8,4 +8,4 @@ Currently it is possible to gather data concerning LULUCF land use categories,
 harvested wood products and LULUCF summmary. The levels used are the one that are
 common to all parties. The collected data is provided as is, no further analysis or examination is done.
 
-See USAGE.md for more information.
+See [USAGE](USAGE.md) for more information.
