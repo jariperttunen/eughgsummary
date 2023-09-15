@@ -43,6 +43,7 @@ To select countries one of the following must be used:
 + -a: All reporting countries.
 + -c: List of country acronyms separated by spaces.
 
+Some countries report years in 1980's. These are filtered out.
 
 ## eululucftotal.py
 The script collects sums of CO<sub>2</sub>, CH<sub>4</sub> and N<sub>2</sub>O net emissions from Table 4 for 
@@ -66,6 +67,8 @@ To select countries one of the following must be used:
 
 To define GWP to be used:
 + --GWP: possible values are AR4 (default, used in GHG) or AR5.
+
+Some countries report years in 1980's. These are filtered out.
 
 ## Examples
 
