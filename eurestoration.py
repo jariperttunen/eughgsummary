@@ -92,7 +92,8 @@ def CreateEUTable4Total2(writer,data_dir,countryls:list,inv_start:int,inv_end:in
     for (sheet,sheet_ext,row_name,columns_ls) in zip(sheet_ls,sheet_ext_ls,substr_ls,columns_lss):
         df_merge = pd.DataFrame()
         for country in countryls:
-            excelfilels=sorted(glob.glob(data_dir+'/'+country+'/'+country+'*.xlsx'))
+            excelfilels=list(set(glob.glob(directory+'/'+country+'/*.xlsx'))-set(glob.glob(directory+'/'+country+'/*_198??*.xlsx')))
+            excelfilels.sort()
             print(country,sheet)
             data_row_lss=[]
             for excel_file in excelfilels:
@@ -131,7 +132,10 @@ if __name__ == "__main__":
     group.add_argument("--eu",action="store_true",dest="eu",default=False,help="EU countries")
     group.add_argument("--euplus",action="store_true",dest="euplus",default=False,help="EU countries plus GBR, ISL, NOR")
     group.add_argument("-a","--all",action="store_true",dest="all",default=False,help="All countries (EU+others")
-    group.add_argument("-c","--countries",dest="country",type=str,nargs='+',help="List of countries from the official acronyms separated by spaces")
+    group.add_argument("-l","--list",action="store_true",dest="countryls",default=False,
+                       help="List files in Inventory Parties Directory")
+    group.add_argument("-c","--countries",dest="country",type=str,nargs='+',
+                       help="List of countries from the official acronyms separated by spaces")
     args = parser.parse_args()
     directory=args.f1
     print("Inventory Parties data directory:",directory)
@@ -152,6 +156,12 @@ if __name__ == "__main__":
         print("Using all countries")
         countryls = allcountryls
         file_prefix='EU_and_Others'
+    elif args.countryls:
+        print("Listing countries in",args.f1)
+        ls = glob.glob(args.f1+'/???')
+        countryls = [pathlib.Path(x).name for x in ls]
+        countryls.sort()
+        file_prefix = pathlib.Path(args.f1).name
     else:
         print("Using countries:", args.country) 
         countryls=args.country

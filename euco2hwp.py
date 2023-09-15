@@ -1,3 +1,4 @@
+import pathlib
 import pandas as pd
 import numpy as np
 import math
@@ -12,23 +13,24 @@ inventory_end=2015
 
 #List of excel sheets needed
 sheetls = ['Table4.Gs1']
-table4Gs1_sheet_name_ls=['Table4.Gs1 Total HWP','Table4.Gs1 Total HWP Domestic','Table4.Gs1 Total HWP Exported']
-table4Gs1_row_ls=['TOTAL HWP','Total']
+table4Gs1_sheet_name_ls=['Table4.Gs1 Total HWP','Table4.Gs1 Total HWP Domestic','Table4.Gs1 Total HWP Exported',
+                         'Table4.Gs1 Solid wood','Table4.Gs1 Sawnwood','Table4.Gs1 Wood panels','Table4.Gs1 Paper and paperboard']
+table4Gs1_row_ls=['TOTAL HWP','Total','Solidwood','Sawnwood','Wood panels','Paper and paperboard']
 
 def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_name_ls,start,end):
     """Read CRFReporter Reporting table files (excel) for given EU countries
        for each inventory year. Find the given sheet and the given row (inventory item)
        and create a data frame row for each country for the CO2 net emission for each inventory year
        (last cell in the given row). This way one excel sheet is created including all EU countries.
-       writer: excel writer that collects all Reporting tables into one excel file
-       directory: directory for the countries (each country is a directory containing excel files) 
-       countryls: list of (EU) countries
-       sheet: the name of the excel sheet to be read
-       row_name_ls: the row names to pick up in the sheet
-       col: column index to data
-       sheet_name_ls: sheet names (1.HWP Total, 2.HWP Domestic, 3.HW Exported) in the output excel file
-       start: inventory start year
-       end: inventory end year
+       \param writer: excel writer that collects all Reporting tables into one excel file
+       \param directory: directory for the countries (each country is a directory containing excel files) 
+       \param countryls: list of (EU) countries
+       \param sheet: the name of the excel sheet to be read
+       \param row_name_ls: the row names to pick up in the sheet
+       \param col: column index to data
+       \parsheet_name_ls: sheet names (1.HWP Total, 2.HWP Domestic, 3.HW Exported) in the output excel file
+       \param start: inventory start year
+       \param end: inventory end year
     """
     data_row_ls0=[]
     data_row_ls1=[]
@@ -37,7 +39,8 @@ def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_n
     for country in countryls:
         #country=country.lower()
         #List all excel files and sort the files in ascending order (1990,1991,...,2015)
-        excelfilels=glob.glob(directory+'/'+country+'*/*.xlsx')
+        #Exclude years in 1980's
+        excelfilels=list(set(glob.glob(directory+'/'+country+'/*.xlsx'))-set(glob.glob(directory+'/'+country+'/*_198??*.xlsx')))
         excelfilels=sorted(excelfilels)
         print(country.upper(),sheet_name_ls[0],sheet_name_ls[1],sheet_name_ls[2])
         row_ls0=[]
@@ -46,9 +49,9 @@ def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_n
         i=start
         if excelfilels==[]:
             print("Missing country",country)
-            row_ls0=['?']*len(list(range(start,(end+1))))
-            row_ls1=['?']*len(list(range(start,(end+1))))
-            row_ls2=['?']*len(list(range(start,(end+1))))
+            row_ls0=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls1=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls2=[pd.NA]*len(list(range(start,(end+1))))
         for file in excelfilels:
             print(i)
             i=i+1
@@ -117,6 +120,8 @@ if __name__ == "__main__":
     group.add_argument("--euplus",action="store_true",dest="euplus",default=False,help="EU countries plus GBR, ISL and NOR")
     group.add_argument("-a","--all",action="store_true",dest="all",default=False,help="All countries (EU+others")
     group.add_argument("-c","--countries",dest="country",type=str,nargs='+',help="List of countries")
+    group.add_argument("-l","--list",action="store_true",dest="countryls",default=False,
+                       help="List files in Inventory Parties Directory")
 
     args = parser.parse_args()
     directory=args.f1
@@ -137,6 +142,12 @@ if __name__ == "__main__":
         print("Using all countries")
         countryls = euls+noneuls
         file_prefix='EU_and_Others'
+    elif args.countryls:
+        print("Listing countries in",args.f1)
+        ls = glob.glob(args.f1+'/???')
+        countryls = [pathlib.Path(x).name for x in ls]
+        countryls.sort()
+        file_prefix = pathlib.Path(args.f1).name
     else:
         print("Using countries", args.country) 
         countryls=args.country
