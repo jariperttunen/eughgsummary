@@ -40,9 +40,10 @@ The command line arguments are:
 To select countries one of the following must be used:
 + --eu: EU countries.
 + --euplus: EU plus GBR, ISL and NOR
-+ -a: All reporting countries.
-+ -c: List of country acronyms separated by spaces.
-
++ --all: All reporting countries.
++ --countries: List of country acronyms separated by spaces.
++ --list: Use the countries in source directory pointed to with the option -d
+  
 Some countries report years in 1980's. These are filtered out.
 
 ## eululucftotal.py
@@ -62,9 +63,10 @@ The command line arguments are:
 To select countries one of the following must be used:
 + --eu: EU countries.
 + --euplus: EU plus GBR, ISL and NOR
-+ -a: All reporting countries.
-+ -c: List of country acronyms separated by spaces.
-
++ --all: All reporting countries.
++ --countries: List of country acronyms separated by spaces.
++ --list: Use the countries in source directory pointed to with the option -d
+  
 To define GWP to be used:
 + --GWP: possible values are AR4 (default, used in GHG) or AR5.
 
