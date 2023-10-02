@@ -8,6 +8,14 @@ Currently it is possible to gather data concerning LULUCF land use categories,
 harvested wood products and LULUCF summary. The reporting categories or subcategories used are the ones 
 that are common to all parties. The collected data is provided as is, no further analysis or examination is done.
 
+## Python virtual environment
+The `requirements.txt`  contains information for pip to install python packages
+required by *eughgsummary*. First, create python virtual environment, activate it and
+install the packages:
++ pip  install -r requirements.txt
+
+You may need to tell the proxy server for `pip`.
+
 ## euco2.py
 The scripts collects net emissions from the Table4.A to Table4.F. This amounts to data for LULUCF
 land use, land-use change and forestry. The output is a single file of all net emissions collected
@@ -99,12 +107,3 @@ The `-h` option for python scripts gives help for command line arguments.
 
 ## Slurm 
 To use Slurm workload manager see `eughgsummary.slurm` and `eurestoration.slurm` for details for the python scripts.
-
-## Python virtual environment
-
-The `requirements.txt`  contains information for pip to install python packages
-required by eughgsummary. First, create python virtual environment, activate it and
-install the packages:
-+ pip  install -r requirements.txt
-
-You may need to tell the proxy server for `pip`.
