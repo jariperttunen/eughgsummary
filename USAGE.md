@@ -80,8 +80,10 @@ CRFReporter excel files are in *CRF_vertailu* and collect data for EU plus GBR, 
       python euco2hwp.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus 
       python eululucftotal.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus
 
-See `eughgsummary.slurm` for details for each of the tree python scripts.
 The `-h` option for python scripts gives help for command line arguments.
+
+## eughgsummary.slurm
+To use Slurm workload manager see `eughgsummary.slurm` for details for each of the tree python scripts.
 
 ## Python virtual environment
 
