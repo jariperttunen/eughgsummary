@@ -14,8 +14,10 @@ inventory_end=2015
 #List of excel sheets needed
 sheetls = ['Table4.Gs1']
 table4Gs1_sheet_name_ls=['Table4.Gs1 Total HWP','Table4.Gs1 Total HWP Domestic','Table4.Gs1 Total HWP Exported',
-                         'Table4.Gs1 Solid wood','Table4.Gs1 Sawnwood','Table4.Gs1 Wood panels','Table4.Gs1 Paper and paperboard']
-table4Gs1_row_ls=['TOTAL HWP','Total','Solidwood','Sawnwood','Wood panels','Paper and paperboard']
+                         'Table4.Gs1 Solid wood Tot','Table4.Gs1 Solid Domestic','Table4,Gs1 Solid Exported',
+                         'Table4.Gs1 Paper+pboard Tot','Table4.Gs1 Paper+pboard Dom','Table4.Gs1 Paper+pboard Exp',
+                         'Table4.Gs1 Other Tot','Table4.Gs1 Other Domestic','Table4.Gs1 Other Exported' ]
+table4Gs1_row_ls=['TOTAL HWP','Total','Solid wood','Paper and paperboard','Other \(please specify\)']
 
 def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_name_ls,start,end):
     """Read CRFReporter Reporting table files (excel) for given EU countries
@@ -32,9 +34,28 @@ def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_n
        \param start: inventory start year
        \param end: inventory end year
     """
+    #Total HWP, total HWP domestic and total HWP exported
     data_row_ls0=[]
     data_row_ls1=[]
     data_row_ls2=[]
+    #Solid wood total
+    data_row_ls3=[]
+    #Solid wood domestic
+    data_row_ls4=[]
+    #Solid wood exported
+    data_row_ls5=[]
+    #Paper and paperboard total
+    data_row_ls6=[]
+    #Paper and paperboard domestic
+    data_row_ls7=[]
+    #Paper and paperboard exported
+    data_row_ls8=[]
+    #Other total
+    data_row_ls9=[]
+    #Other domestic
+    data_row_ls10=[]
+    #Other exported
+    data_row_ls11=[]
     approachA_set=set()
     for country in countryls:
         #country=country.lower()
@@ -46,12 +67,40 @@ def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_n
         row_ls0=[]
         row_ls1=[]
         row_ls2=[]
+        #Solid wood total
+        row_ls3=[]
+        #Solid wood domestic
+        row_ls4=[]
+        #Solid wood exported
+        row_ls5=[]
+        #Paper and paperboard total
+        row_ls6=[]
+        #Paper and paperboard domestic
+        row_ls7=[]
+        #Paper and paperboard exported
+        row_ls8=[]
+        #Other total
+        row_ls9=[]
+        #Other domestic
+        row_ls10=[]
+        #Other exported
+        row_ls11=[]
         i=start
         if excelfilels==[]:
             print("Missing country",country)
             row_ls0=[pd.NA]*len(list(range(start,(end+1))))
             row_ls1=[pd.NA]*len(list(range(start,(end+1))))
             row_ls2=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls3=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls4=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls5=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls5=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls6=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls7=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls8=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls9=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls10=[pd.NA]*len(list(range(start,(end+1))))
+            row_ls11=[pd.NA]*len(list(range(start,(end+1))))
         for file in excelfilels:
             print(i)
             i=i+1
@@ -91,14 +140,79 @@ def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_n
                 else:
                     row_ls0.append(row0.iloc[0,col])
                     approachA_set.add(country.upper())
+            #Collect more detailed data: 1. Solid wood, 2. Paper and paperboard and 3. Other
+            #The common levels to all countries, details vary.
+            #It seems countries report Apporoach B either Total HWP only or dividing between
+            #Domestic and Exported (i.e. the logic above unnecessary complicated)
+            #1. Collect Solid wood, query gives 6 rows
+            df_solid_rows = df1[df1[index].str.contains(row_name_ls[2])==True]
+            #The second row gives Approach A Total HWP
+            solid = df_solid_rows.iloc[1,col]
+            if pd.notnull(solid):
+                #There is Total HWP only
+                row_ls3.append(solid)
+            else:
+                #There is division between Domestic and Exported
+                #Third and fourth row give Domestic and Exported respectively
+                solid_domestic = df_solid_rows.iloc[2,col]
+                solid_exported =  df_solid_rows.iloc[3,col]
+                row_ls4.append(solid_domestic)
+                row_ls5.append(solid_exported)
+            #2. Collect paper and paperboard, query gives 6 rows
+            df_paper_rows = df1[df1[index].str.contains(row_name_ls[3])==True]
+            paper = df_paper_rows.iloc[1,col]
+            if pd.notnull(paper):
+                #There is Total HWP only
+                row_ls6.append(paper)
+            else:
+                #There is division between Domestic and Exported
+                #Third and fourth row give Domestic and Exported respectively
+                paper_domestic = df_paper_rows.iloc[2,col]
+                paper_exported =  df_paper_rows.iloc[3,col]
+                row_ls7.append(paper_domestic)
+                row_ls8.append(paper_exported)
+            #3. Collect Other, query gives 6 rows
+            df_other_rows = df1[df1[index].str.contains(row_name_ls[4])==True]
+            other = df_paper_rows.iloc[1,col]
+            if pd.notnull(other):
+                #There is  Total HWP only
+                row_ls9.append(other)
+            else:
+                #There is division between Domestic and Exported
+                #Third and fourth row give Domestic and Exported respectively
+                other_domestic = df_other_rows.iloc[2,col]
+                other_exported =  df_other_rows.iloc[3,col]
+                row_ls10.append(other_domestic)
+                row_ls11.append(other_exported)
+        #One excel done, append data
         data_row_ls0.append(row_ls0)
         data_row_ls1.append(row_ls1)
         data_row_ls2.append(row_ls2)
+        data_row_ls3.append(row_ls3)
+        data_row_ls4.append(row_ls4)
+        data_row_ls5.append(row_ls5)
+        data_row_ls6.append(row_ls6)
+        data_row_ls7.append(row_ls7)
+        data_row_ls8.append(row_ls8)
+        data_row_ls9.append(row_ls9)
+        data_row_ls10.append(row_ls10)
+        data_row_ls11.append(row_ls11)
     data_row_ls0.append(sorted(list(approachA_set))+['']*(len(list(range(start,end+1)))-len(list(approachA_set))))
+    #All is done, create dataframes
     df_total = pd.DataFrame(data_row_ls0)
     df_domestic = pd.DataFrame(data_row_ls1)
     df_export = pd.DataFrame(data_row_ls2)
-    print(len(data_row_ls0),len(countryls))
+    df_solid = pd.DataFrame(data_row_ls3)
+    df_solid_domestic = pd.DataFrame(data_row_ls4)
+    df_solid_exported = pd.DataFrame(data_row_ls5)
+    df_paper = pd.DataFrame(data_row_ls6)
+    df_paper_domestic = pd.DataFrame(data_row_ls7)
+    df_paper_exported = pd.DataFrame(data_row_ls8)
+    df_other =  pd.DataFrame(data_row_ls9)
+    df_other_domestic = pd.DataFrame(data_row_ls10)
+    df_other_exported = pd.DataFrame(data_row_ls11)
+    #Create excel sheets
+    #Total
     df_total.index=countryls+['Approach A']
     df_total.columns=list(range(start,end+1))
     df_total.to_excel(writer,sheet_name=sheet_name_ls[0],na_rep='NaN')
@@ -108,8 +222,37 @@ def CreateHWPExcelSheet(writer,directory,countryls,sheet,row_name_ls,col,sheet_n
     df_export.index=countryls
     df_export.columns=list(range(start,end+1))
     df_export.to_excel(writer,sheet_name=sheet_name_ls[2],na_rep='NaN')
-
-
+    #Solid
+    df_solid.index = countryls
+    df_solid.columns = list(range(start,end+1))
+    df_solid.to_excel(writer,sheet_name=sheet_name_ls[3],na_rep='NaN')
+    df_solid_domestic.index = countryls
+    df_solid_domestic.columns = list(range(start,end+1))
+    df_solid_domestic.to_excel(writer,sheet_name=sheet_name_ls[4],na_rep='NaN')
+    df_solid_exported.index = countryls
+    df_solid_exported.columns = list(range(start,end+1))
+    df_solid_exported.to_excel(writer,sheet_name=sheet_name_ls[5],na_rep='NaN')
+    #Paper and paperboard
+    df_paper.index = countryls
+    df_paper.columns = list(range(start,end+1))
+    df_paper.to_excel(writer,sheet_name=sheet_name_ls[6],na_rep='NaN')
+    df_paper_domestic.index = countryls
+    df_paper_domestic.columns = list(range(start,end+1))
+    df_paper_domestic.to_excel(writer,sheet_name=sheet_name_ls[7],na_rep='NaN')
+    df_paper_exported.index = countryls
+    df_paper_exported.columns = list(range(start,end+1))
+    df_paper_exported.to_excel(writer,sheet_name=sheet_name_ls[8],na_rep='NaN')
+    #Other
+    df_other.index = countryls
+    df_other.columns = list(range(start,end+1))
+    df_other.to_excel(writer,sheet_name=sheet_name_ls[9],na_rep='NaN')
+    df_other_domestic.index = countryls
+    df_other_domestic.columns = list(range(start,end+1))
+    df_other_domestic.to_excel(writer,sheet_name=sheet_name_ls[10],na_rep='NaN')
+    df_other_exported.index = countryls
+    df_other_exported.columns = list(range(start,end+1))
+    df_other_exported.to_excel(writer,sheet_name=sheet_name_ls[11],na_rep='NaN')
+    
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d","--directory",dest="f1",required=True,help="Inventory Parties Directory")
