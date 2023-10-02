@@ -46,6 +46,21 @@ To select countries one of the following must be used:
   
 Some countries report years in 1980's. These are filtered out.
 
+## eurestoration.py
+Collect row 10 from CRFReporter Excel files Table4 A,B,C and D.
+The command line arguments are:
++ -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
+      organised in this directory by countries denoted with three letter acronyms.
++ -s: Start year of the inventory.
++ -e: End year of the inventory.
+
+To select countries one of the following must be used:
++ --eu: EU countries.
++ --euplus: EU plus GBR, ISL and NOR
++ --all: All reporting countries.
++ --countries: List of country acronyms separated by spaces.
++ --list: Use the countries in source directory pointed to with the option -d
+
 ## eululucftotal.py
 The script collects sums of CO<sub>2</sub>, CH<sub>4</sub> and N<sub>2</sub>O net emissions from Table 4 for 
 Total LULUCF and categories Forest land, Cropland, Grassland, Wetlands, Settlements, Other land, HWP and
@@ -83,7 +98,7 @@ CRFReporter excel files are in *CRF_vertailu* and collect data for EU plus GBR, 
 The `-h` option for python scripts gives help for command line arguments.
 
 ## Slurm 
-To use Slurm workload manager see `eughgsummary.slurm` for details for each of the tree python scripts.
+To use Slurm workload manager see `eughgsummary.slurm` and èurestoration.slurm for details for each of the python scripts.
 
 ## Python virtual environment
 
