@@ -98,7 +98,7 @@ CRFReporter excel files are in *CRF_vertailu* and collect data for EU plus GBR, 
 The `-h` option for python scripts gives help for command line arguments.
 
 ## Slurm 
-To use Slurm workload manager see `eughgsummary.slurm` and èurestoration.slurm for details for each of the python scripts.
+To use Slurm workload manager see `eughgsummary.slurm` and `eurestoration.slurm` for details for the python scripts.
 
 ## Python virtual environment
 
