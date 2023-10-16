@@ -1,6 +1,7 @@
 import os
 import argparse
 import pathlib
+import pathlib
 import glob
 import pandas as pd
 import numpy as np
@@ -45,27 +46,30 @@ def CreateLULUCFTotalSheet(writer,directory,countryls,sheet,row_name,result_shee
     for each inventory year. Find the given sheet and the given row (inventory item)
     and create a data frame row for each country for the CO2 net emission for each inventory year
     (last cell in the given row). This way one excel sheet is created including all EU countries.
-    writer: excel writer that collects all Reporting tables into one excel file
-    directory: directory for the countries (each country is a directory containing excel files) 
-    countryls: list of (EU) countries
-    sheet: the name of the excel sheet to be read
-    row_name: the row names to pick up in the sheet
-    col: column index to data
-    result_sheet_name: sheet name in the output excel file
-    start: inventory start year
-    end: inventory end year
-    ch4gwp: CH4 global warming potential
-    n2ogwp: N2O global warming potential
+    \param writer: excel writer that collects all Reporting tables into one excel file
+    \param directory: directory for the countries (each country is a directory containing excel files) 
+    \param countryls: list of (EU) countries
+    \param sheet: the name of the excel sheet to be read
+    \param row_name: the row names to pick up in the sheet
+    \param col: column index to data
+    \param result_sheet_name: sheet name in the output excel file
+    \param start: inventory start year
+    \param end: inventory end year
+    \param ch4gwp: CH4 global warming potential
+    \param n2ogwp: N2O global warming potential
     """
     data_row_ls =[]
     #For each country
     for country in countryls:
-        excelfilels=glob.glob(directory+'/'+country+'*/*.xlsx')
+        #Exclude years before 1990, i.e. all years in 1980's
+        excelfilels=list(set(glob.glob(directory+'/'+country+'/*.xlsx'))-set(glob.glob(directory+'/'+country+'/*_198??*.xlsx')))
         #File name allows sorting by year 
-        excelfilels=sorted(excelfilels)
+        excelfilels.sort()
         print(country.upper(),row_name)
+        country_row_ls=[]
         if excelfilels ==[]:
             print("Missing country", country)
+            data_row_ls.append(country_row_ls)
         else:
             country_row_ls=[]
             i = start
@@ -111,7 +115,9 @@ if __name__ == "__main__":
     group.add_argument("--euplus",action="store_true",dest="euplus",default=False,help="EU countries plus GBR, ISL, NOR")
     group.add_argument("-a","--all",action="store_true",dest="all",default=False,help="All countries (EU+others")
     group.add_argument("-c","--countries",dest="country",type=str,nargs='+',help="List of countries from the official acronyms separated by spaces")
+    group.add_argument("-l","--list",action="store_true",dest="countryls",default=False,help="List files in Inventory Parties Directory")
     parser.add_argument('--GWP',type=str,dest='gwp',default="AR4",help="Global warming potential, AR4 (GHG inventory, default) or AR5 (e.g. scenarios)")
+    
     args = parser.parse_args()
     #AR4, GHG default
     ch4co2eq = 25 
@@ -139,16 +145,21 @@ if __name__ == "__main__":
         print("Using all countries")
         countryls = allcountryls
         file_prefix='EU_and_Others'
+    elif args.countryls:
+        print("Listing countries in",args.f1)
+        ls = glob.glob(args.f1+'/???')
+        countryls = [pathlib.Path(x).name for x in ls]
+        countryls.sort()
+        file_prefix = pathlib.Path(args.f1).name
     else:
         print("Using countries", args.country) 
         countryls=args.country
         file_prefix=args.country[0]
         for country in args.country[1:]:
             file_prefix = file_prefix+"_"+country
-
-    writer = pd.ExcelWriter(file_prefix+'_Table4TotalLULUCF_CO2eq_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',
-                            engine='xlsxwriter')
+    file_name = file_prefix+'_Table4TotalLULUCF_CO2eq_'+str(inventory_start)+'_'+str(inventory_end)+'_'+args.gwp+'.xlsx'
+    writer = pd.ExcelWriter(file_name,engine='xlsxwriter')
     for (row_name,sheet_name) in zip(table4_row_substr_ls,table4_sheet_name_ls):
         CreateLULUCFTotalSheet(writer,args.f1,countryls,sheetls[0],row_name,sheet_name,inventory_start,inventory_end,ch4co2eq,n2oco2eq)
-    print("Writing file",file_prefix+'_Table4TotalLULUCF_CO2eq.xlsx')
+    print("Writing file",file_name)
     writer.save()
