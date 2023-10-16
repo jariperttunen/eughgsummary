@@ -4,14 +4,14 @@ To alleviate examination and comparison of GHG net emissions in reporting countr
 eughgsummary contains three scripts to collect and organise data from annual CRF Reporting tables
 (i.e. "official excel files") as country by country and year by year excel files and sheets. 
 
-Currently it is possible to gather data concerning LULUCF land use categories,
+Currently it is possible to gather data with three scripts concerning LULUCF land use categories,
 harvested wood products and LULUCF summary. The reporting categories or subcategories used are the ones 
 that are common to all parties. The collected data is provided as is, no further analysis or examination is done.
 
 ## euco2.py
-The scripts collects net emissions from the Table4.A to Table4.F. This amounts to data for LULUCF
+The scripts collects net emissions from the Table 4.A to Table 4.F. This amounts to data for LULUCF
 land use, land-use change and forestry. The output is a single file of all net emissions collected
-and one file of net emissions collected for each of the Table4 A-F.
+and one file of net emissions for each of the six Tables 4 A-F.
 
 The command line arguments are:
 + -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
@@ -51,7 +51,6 @@ Other (rows A, B, C, D, E and F).  The unit is CO<sub>2</sub>eq, i.e. CH<sub>4</
 net emissions are changed to CO<sub>2</sub>eq  with their Global warming potentials (GWP).
 The output is a single file containing sheets for items collected from Table 4.
 
-
 The command line arguments are:
 + -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
       organised in this directory by countries denoted with three letter acronyms.
@@ -75,7 +74,7 @@ The `-h` option for python scripts gives help for command line arguments.
 ## Python virtual environment
 
 The `requirements.txt`  contains information for pip to install python packages
-required by eughgsummary. First, create python virtual environmen, activate it and
+required by eughgsummary. First, create python virtual environment, activate it and
 install the packages:
 + pip  install -r requirements.txt
 
