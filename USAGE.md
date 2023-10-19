@@ -116,7 +116,7 @@ Note that to repoduce Table4.1 in Excel may take some time, up to 10 hours. Use 
 
 ## Examples
 
-CRFReporter excel files are in *CRF_vertailu* and collect data.
+CRFReporter excel files are in *CRF_vertailu* and collect data according to country options.
 
       python3 euco2.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --eu 
       python3 euco2hwp.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus 
