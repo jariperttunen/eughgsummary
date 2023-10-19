@@ -54,13 +54,13 @@ def CreateExcelSheet(writer,writer2,directory,countryls,sheet,row_name,col,sheet
        for each inventory year. Find the given sheet and the given row (inventory item)
        and create a data frame row for each country for the CO2 net emission for each inventory year
        (last cell in the given row). This way one excel sheet is created including all EU countries.
-       writer: excel writer that collects all Reporting tables into one excel file
-       writer2: excel writer that writes one Reporting table
-       countryls: list of EU countries
-       sheet: the name of the excel sheet to be read
-       row_name: the name of the row in the sheet
-       col: column index to data
-       sheet_name: sheet name in the output excel file
+       \param writer excel writer that collects all Reporting tables into one excel file
+       \param writer2 excel writer that writes one Reporting table
+       \param countryls list of EU countries
+       \param sheet the name of the excel sheet to be read
+       \param row_name the name of the row in the sheet
+       \param col column index to data
+       \param sheet_name sheet name in the output excel file
     """ 
     data_row_ls=[]
     for country in countryls:
@@ -68,14 +68,14 @@ def CreateExcelSheet(writer,writer2,directory,countryls,sheet,row_name,col,sheet
         #country=country.lower()
         #Move dirfilels as parameter or implement more generic way to retrieve
         #excel files for one country.
-        dirfilels=glob.glob(directory+'/'+country+'*/*.xlsx')
-        dirfilels=sorted(dirfilels)
+        excelfilels=list(set(glob.glob(directory+'/'+country+'/*.xlsx'))-set(glob.glob(directory+'/'+country+'/*_198??*.xlsx')))
+        excelfilels=sorted(excelfilels)
         row_ls=[]
         i=inventory_start
-        if len(dirfilels)==0:
+        if len(excelfilels)==0:
             row_ls=['?']*len(list(range(start,(end+1))))
             print('Missing country',country)
-        for file in dirfilels:
+        for file in excelfilels:
             xlsx = pd.ExcelFile(file)
             #The default set if missing values include NA,override default values and set
             #empty string ('') as the missing value

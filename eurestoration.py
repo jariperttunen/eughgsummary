@@ -46,8 +46,8 @@ def CreateEUTable4Total1(writer,data_dir,countryls:list,inv_start:int,inv_end:in
     \return the Excle writer with data
     \post Units are as in Excel files (no conversion to CO2)
     """
-
-    excelfilels=sorted(glob.glob(data_dir+'/'+country+'/'+country+'*.xlsx'))
+    excelfilels=list(set(glob.glob(directory+'/'+country+'/*.xlsx'))-set(glob.glob(directory+'/'+country+'/*_198??*.xlsx')))
+    excelfilels=sorted(excelfilels)
     for (sheet,row_name,columns_ls) in zip(sheet_ls,substr_ls,columns_lss):
         print(country,sheet)
         data_row_lss=[]
