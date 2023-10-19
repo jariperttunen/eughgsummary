@@ -101,7 +101,7 @@ for inventory years.
 
 The command line arguments are:
 + -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
-      organised in this directory by countries (inventory parties) denoted with three letter acronyms.
+   organised in this directory by countries (inventory parties) denoted with three letter acronyms.
 + -s: Start year of the inventory.
 + -e: End year of the inventory.
 
@@ -116,11 +116,11 @@ Note that to repoduce Table4.1 in Excel may take some time, up to 10 hours.
 
 ## Examples
 
-CRFReporter excel files are in *CRF_vertailu* and collect data for EU plus GBR, ISL and NOR.
+CRFReporter excel files are in *CRF_vertailu* and collect data.
 
-      python3 euco2.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus 
+      python3 euco2.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --eu 
       python3 euco2hwp.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus 
-      python3 eululucftotal.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus
+      python3 eululucftotal.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --countries AUT FIN
       python3 eulandtransitionmatrix.py -d /data/projects/khk/CRF_vertailu_2023/  -s 1990 -e 2021 --list
 	  
 The built-in `-h` option for python scripts gives help for command line arguments.
