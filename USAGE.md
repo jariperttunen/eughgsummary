@@ -119,7 +119,7 @@ To select countries one of the following must be used in the command line:
 Some countries report years in 1980's. These are filtered out.
 
 >[!NOTE]
->To reproduce Table4.1 in Excel may take some time, up to 10 hours. Use the Slurm  workload manager in sorvi to run the
+>To reproduce Table4.1 in Excel may take some time, up to 8 hours. Use the Slurm  workload manager in sorvi to run the
 >`eulandtransitionmatrix.slurm` script.
 
 ## Examples
