@@ -112,6 +112,8 @@ To select countries one of the following must be used in the command line:
 + --countries: List of country acronyms separated by spaces.
 + --list: Use the countries in source directory pointed to with the option -d
 
+Some countries report years in 1980's. These are filtered out.
+
 Note that to repoduce Table4.1 in Excel may take some time, up to 10 hours. Use the Slurm  workload manager in sorvi to run the script.
 
 ## Examples
