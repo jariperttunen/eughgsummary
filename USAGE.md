@@ -97,7 +97,7 @@ Some countries report years in 1980's. These are filtered out.
 
 ##  eulandtransitionmatrix.py
 Reproduce Table4.1 Land Transition Matrix in Excel by folding it out by inventory parties 
-for inventory years.
+for inventory years. Each land transition is on a separate Excel sheet.  
 
 The command line arguments are:
 + -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
