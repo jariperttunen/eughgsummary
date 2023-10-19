@@ -12,7 +12,8 @@ that are common to all parties. The collected data is provided as is, no further
 The `requirements.txt`  contains information for pip to install python packages
 required by *eughgsummary*. First, create python virtual environment, activate it and
 install the packages:
-+ pip  install -r requirements.txt
+
+	+ pip  install -r requirements.txt
 
 You may need to tell the proxy server for `pip`.
 
@@ -23,7 +24,7 @@ and one file of net emissions for each of the six Tables 4 A-F.
 
 The command line arguments are:
 + -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
-      organised in this directory by countries denoted with three letter acronyms.
+      organised in this directory by countries (inventory parties) denoted with three letter acronyms.
 + -s: Start year of the inventory.
 + -e: End year of the inventory.
 
@@ -41,11 +42,11 @@ file with three sheets for HWP net emissions.
 
 The command line arguments are:
 + -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
-      organised in this directory by countries denoted with three letter acronyms.
+      organised in this directory by countries (inventory parties) denoted with three letter acronyms.
 + -s: Start year of the inventory.
 + -e: End year of the inventory.
 
-To select countries one of the following must be used:
+To select countries one of the following must be used in the command line:
 + --eu: EU countries.
 + --euplus: EU plus GBR, ISL and NOR
 + --all: All reporting countries.
@@ -62,7 +63,7 @@ The command line arguments are:
 + -s: Start year of the inventory.
 + -e: End year of the inventory.
 
-To select countries one of the following must be used:
+To select countries one of the following must be used in the command line:
 + --eu: EU countries.
 + --euplus: EU plus GBR, ISL and NOR
 + --all: All reporting countries.
@@ -78,11 +79,11 @@ The output is a single file containing sheets for items collected from Table 4.
 
 The command line arguments are:
 + -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
-      organised in this directory by countries denoted with three letter acronyms.
+      organised in this directory by countries (inventory parties) denoted with three letter acronyms.
 + -s: Start year of the inventory.
 + -e: End year of the inventory.
 
-To select countries one of the following must be used:
+To select countries one of the following must be used in the command line:
 + --eu: EU countries.
 + --euplus: EU plus GBR, ISL and NOR
 + --all: All reporting countries.
@@ -94,6 +95,25 @@ To define GWP to be used:
 
 Some countries report years in 1980's. These are filtered out.
 
+##  eulandtransitionmatrix.py
+Reproduce Table4.1 Land Transition Matrix in Excel by folding it out by inventory parties 
+for inventory years.
+
+The command line arguments are:
++ -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
+      organised in this directory by countries (inventory parties) denoted with three letter acronyms.
++ -s: Start year of the inventory.
++ -e: End year of the inventory.
+
+To select countries one of the following must be used in the command line:
++ --eu: EU countries.
++ --euplus: EU plus GBR, ISL and NOR
++ --all: All reporting countries.
++ --countries: List of country acronyms separated by spaces.
++ --list: Use the countries in source directory pointed to with the option -d
+
+Note that to repoduce Table4.1 in Excel may take some time, up to 10 hours.
+
 ## Examples
 
 CRFReporter excel files are in *CRF_vertailu* and collect data for EU plus GBR, ISL and NOR.
@@ -101,18 +121,10 @@ CRFReporter excel files are in *CRF_vertailu* and collect data for EU plus GBR, 
       python euco2.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus 
       python euco2hwp.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus 
       python eululucftotal.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus
-
+	  eulandtransitionmatrix.py -d /data/projects/khk/CRF_vertailu_2023/  -s 1990 -e 2021 --list
+	  
 The `-h` option for python scripts gives help for command line arguments.
 
-## Python virtual environment
-
-The `requirements.txt`  contains information for pip to install python packages
-required by eughgsummary. First, create python virtual environment, activate it and
-install the packages:
-+ pip  install -r requirements.txt
-
-You may need to tell the proxy server for `pip`.
-
 ## Slurm 
-To use Slurm workload manager see `eughgsummary.slurm` and `eurestoration.slurm` for details for the python scripts.
+To use Slurm workload manager see `eughgsummary.slurm`, `eurestoration.slurm` and `eulandtransition.slurm` for details for the python scripts.
 
