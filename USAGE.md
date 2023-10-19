@@ -118,12 +118,12 @@ Note that to repoduce Table4.1 in Excel may take some time, up to 10 hours.
 
 CRFReporter excel files are in *CRF_vertailu* and collect data for EU plus GBR, ISL and NOR.
 
-      python euco2.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus 
-      python euco2hwp.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus 
-      python eululucftotal.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus
-	  eulandtransitionmatrix.py -d /data/projects/khk/CRF_vertailu_2023/  -s 1990 -e 2021 --list
+      python3 euco2.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus 
+      python3 euco2hwp.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus 
+      python3 eululucftotal.py -d /data/d4/projects/khk/CRF_vertailu/ -s 1990 -e 2019 --euplus
+      python3 eulandtransitionmatrix.py -d /data/projects/khk/CRF_vertailu_2023/  -s 1990 -e 2021 --list
 	  
-The `-h` option for python scripts gives help for command line arguments.
+The built-in `-h` option for python scripts gives help for command line arguments.
 
 ## Slurm 
 To use Slurm workload manager see `eughgsummary.slurm`, `eurestoration.slurm` and `eulandtransition.slurm` for details for the python scripts.
