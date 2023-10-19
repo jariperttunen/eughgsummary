@@ -116,7 +116,7 @@ Some countries report years in 1980's. These are filtered out.
 
 >[!NOTE]
 >To reproduce Table4.1 in Excel may take some time, up to 10 hours. Use the Slurm  workload manager in sorvi to run the
->`eulandtransition.slurm` script.
+>`eulandtransitionmatrix.slurm` script.
 
 ## Examples
 
@@ -130,5 +130,6 @@ CRFReporter excel files are in *CRF_vertailu* and collect data according to coun
 The built-in `-h` option for python scripts gives help for command line arguments.
 
 ## Slurm 
-To use Slurm workload manager see `eughgsummary.slurm`, `eurestoration.slurm` and `eulandtransition.slurm` for details for the python scripts.
+To use Slurm workload manager see `eughgsummary.slurm`, `eurestoration.slurm` and `eulandtransitionmatrix.slurm` 
+for details for the python scripts.
 
