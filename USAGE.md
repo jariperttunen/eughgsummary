@@ -34,6 +34,8 @@ To select countries one of the following must be used:
 + -a: All reporting countries.
 + -c: List of country acronyms separated by spaces.
 
+Some countries report years in 1980's. These are filtered out.
+
 ## euco2hwp.py
 The script collects net emissions Harvested wood products (HWP) data for Total HWP, Total HWP Domestic
 and Total HWP Exported from the Table4.Gs1. Note a country may have reported Total HWP only.
@@ -69,6 +71,8 @@ To select countries one of the following must be used in the command line:
 + --all: All reporting countries.
 + --countries: List of country acronyms separated by spaces.
 + --list: Use the countries in source directory pointed to with the option -d
+
+Some countries report years in 1980's. These are filtered out.
 
 ## eululucftotal.py
 The script collects sums of CO<sub>2</sub>, CH<sub>4</sub> and N<sub>2</sub>O net emissions from Table 4 for 
