@@ -97,7 +97,7 @@ Some countries report years in 1980's. These are filtered out.
 
 ##  eulandtransitionmatrix.py
 Reproduce Table4.1 Land Transition Matrix in Excel by folding it out by inventory parties 
-for inventory years.
+for inventory years. Each land transition is on a separate Excel sheet.  
 
 The command line arguments are:
 + -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
@@ -112,7 +112,11 @@ To select countries one of the following must be used in the command line:
 + --countries: List of country acronyms separated by spaces.
 + --list: Use the countries in source directory pointed to with the option -d
 
-Note that to repoduce Table4.1 in Excel may take some time, up to 10 hours. Use the Slurm  workload manager in sorvi to run the script.
+Some countries report years in 1980's. These are filtered out.
+
+>[!NOTE]
+>To reproduce Table4.1 in Excel may take some time, up to 10 hours. Use the Slurm  workload manager in sorvi to run the
+>`eulandtransition.slurm` script.
 
 ## Examples
 
