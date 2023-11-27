@@ -18,5 +18,5 @@ source /home/jarip/venv/euco2/bin/activate
 #Data in CRF_vertailu and collect data for EU plus GBR, ISL and NOR
 #srun -N 1 -n 1 python euco2.py -d /data/d4/projects/khk/CRF_vertailu_2023/ -s 1990 -e 2021 --euplus &
 srun -N 1 -n 1 python euco2hwp.py -d /data/d4/projects/khk/CRF_vertailu_2023/ -s 1990 -e 2021 --list &
-srun -N 1 -n 1 python eululucftotal.py -d /data/d4/projects/khk/CRF_vertailu_2023/ -s 1990 -e 2021 --list --GWP AR5 &
+#srun -N 1 -n 1 python eululucftotal.py -d /data/d4/projects/khk/CRF_vertailu_2023/ -s 1990 -e 2021 --list --GWP AR5 &
 wait
