@@ -39,16 +39,17 @@ def EULandUseChange(excel_writer,directory,countryls,sheet:str,sheet_name:str,fr
         #Exclude years in 1980's that some countries report
         excelfilels=list(set(glob.glob(directory+'/'+country+'/*.xlsx'))-set(glob.glob(directory+'/'+country+'/*_198??*.xlsx')))
         excelfilels=sorted(excelfilels)
-        for file in excelfilels:
+        print(country,sheet,sheet_name)
+        for excel_file in excelfilels:
             xlsx = pd.ExcelFile(excel_file)
-            df = pd.read_excel(xlsx,sheet_name,keep_default_na=False,na_values=[''])
+            df = pd.read_excel(xlsx,sheet,keep_default_na=False,na_values=[''])
             row = df[df[df.columns[0]].str.contains(from_row)==True]
             rowls.append(row.iloc[0,from_col])
         datarowlss.append(rowls)
     dftotal = pd.DataFrame(datarowlss)
     dftotal.index = countryls
     dftotal.columns =  list(range(start,end+1))
-    dftotal.to_excel(writer,sheet_name,na_rep='NaN')
+    dftotal.to_excel(excel_writer,sheet_name,na_rep='NaN')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -84,6 +85,7 @@ if __name__ == "__main__":
         file_prefix='EU_and_Others'
     elif args.countryls:
         print("Listing countries in",args.f1)
+        #The ??? mean three letter acronyms matched 
         ls = glob.glob(args.f1+'/???')
         countryls = [pathlib.Path(x).name for x in ls]
         countryls.sort()
@@ -97,12 +99,12 @@ if __name__ == "__main__":
 
     excel_writer = pd.ExcelWriter(file_prefix+'_Table4A-Table4F_land_use_change'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',engine='xlsxwriter')
     sheet_name_index=0
-    for land_use_sheet in land_use_table_ls:
+    for land_use_sheet in land_use_change_table_ls:
         land_use_row_ls = land_use_change_rows_ls
         #Special case with Wetlands, only three rows
         if land_use_sheet == 'Table4.D':
             land_use_row_ls = land_use_change_wl_rows_ls 
-        for land_use_row in land_use_change_rows_ls:
+        for land_use_row in land_use_row_ls:
             EULandUseChange(excel_writer,directory,countryls,land_use_sheet,land_use_change_sheet_name_ls[sheet_name_index],land_use_row,2,inventory_start,inventory_end)
-            sheet_name_index=sheet_nameindex+1
-     excel_writer.save()
+            sheet_name_index=sheet_name_index+1
+    excel_writer.save()
