@@ -1,7 +1,6 @@
 import os
 import argparse
 import pathlib
-import pathlib
 import glob
 import pandas as pd
 import numpy as np
