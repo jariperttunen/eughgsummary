@@ -9,13 +9,13 @@ from countrylist import euls,euplusls,noneuls,allcountryls
 land_use_change_table_ls = ['Table4.A','Table4.B','Table4.C','Table4.D','Table4.E','Table4.F']
 land_use_change_rows_ls = ['2.1','2.2','2.3','2.4','2.5']
 #Table4.D Wetlands is a special case, but these name should find the right rows
-land_use_change_wl_rows_ls = ['2.1. Land','2.2 Land','2.3 Land']
-land_use_change_sheet_name_ls = ['CL-FL','GL-FL','WL-FL','SL-FL','OL-FL',
-                                 'FL-CL','GL-CL','WL-CL','SL-CL','OL-CL',
-                                 'FL-GL','CL-GL','WL-GL','SL-GL','OL-GL',
-                                 '2.1Land-WLpeat_extraction','2.2Land-WLflooded','2.3Land-WLother',
-                                 'FL-SL','CL-SL','GL-SL','WL-SL','OL-SL',
-                                 'FL-OL','CL-OL','GL-OL','WL-OL','SL-OL'
+land_use_change_wl_rows_ls = ['2.1 Land','2.2 Land','2.3 Land']
+land_use_change_sheet_name_ls = ['4A_CL-FL','4A_GL-FL','4A_WL-FL','4A_SL-FL','4A_OL-FL',
+                                 '4B_FL-CL','4B_GL-CL','4B_WL-CL','4B_SL-CL','4B_OL-CL',
+                                 '4C_FL-GL','4C_CL-GL','4C_WL-GL','4C_SL-GL','4C_OL-GL',
+                                 '4D_2.1Land-WLpeat_extraction','4D_2.2Land-WLflooded','4D_2.3Land-WLother',
+                                 '4E_FL-SL','4E_CL-SL','4E_GL-SL','4E_WL-SL','4E_OL-SL',
+                                 '4F_FL-OL','4F_CL-OL','4F_GL-OL','4F_WL-OL','4F_SL-OL'
                                  ]
 
 def EULandUseChange(excel_writer,directory,countryls,sheet:str,sheet_name:str,from_row:str,from_col:int,start:int,end:int):
