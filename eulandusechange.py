@@ -100,7 +100,7 @@ if __name__ == "__main__":
     for land_use_sheet in land_use_table_ls:
         land_use_row_ls = land_use_change_rows_ls
         #Special case with Wetlands, only three rows
-        if land_use_sheet = 'Table4.D':
+        if land_use_sheet == 'Table4.D':
             land_use_row_ls = land_use_change_wl_rows_ls 
         for land_use_row in land_use_change_rows_ls:
             EULandUseChange(excel_writer,directory,countryls,land_use_sheet,land_use_change_sheet_name_ls[sheet_name_index],land_use_row,2,inventory_start,inventory_end)
