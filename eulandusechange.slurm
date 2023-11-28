@@ -6,11 +6,12 @@
 #SBATCH --cpus-per-task=1        # cpu-cores per task (>1 if multi-threaded tasks)
 #SBATCH --mem-per-cpu=4G         # memory per cpu-core
 #SBATCH --partition=normal         # sorvi: normal, big or test
-#SBATCH --time=10:00:00          # total run time limit (HH:MM:SS)
+#SBATCH --time=7:00:00          # total run time limit (HH:MM:SS)
 #SBATCH --output=output_%j.txt
 #SBATCH --error=errors_%j.txt
 #SBATCH --mail-type=begin        # send email when job begins
 #SBATCH --mail-type=end          # send email when job ends
+#SBATCH --mail-type=FAIL         # sen email on fail
 #SBATCH --mail-user=jari.perttunen@luke.fi
 
 #Activate virtual environment

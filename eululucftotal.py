@@ -162,4 +162,4 @@ if __name__ == "__main__":
     for (row_name,sheet_name) in zip(table4_row_substr_ls,table4_sheet_name_ls):
         CreateLULUCFTotalSheet(writer,args.f1,countryls,sheetls[0],row_name,sheet_name,inventory_start,inventory_end,ch4co2eq,n2oco2eq)
     print("Writing file",file_name)
-    writer.save()
+    writer.close()

@@ -131,4 +131,4 @@ if __name__ == "__main__":
             CreateLandTransitionMatrix(writer,directory,countryls,land_transition_matrix_sheet,sheet_name,land_use_class,col,
                                        inventory_start,inventory_end)
             col=col+1
-    writer.save()
+    writer.close()
