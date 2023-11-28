@@ -107,4 +107,4 @@ if __name__ == "__main__":
         for land_use_row in land_use_row_ls:
             EULandUseChange(excel_writer,directory,countryls,land_use_sheet,land_use_change_sheet_name_ls[sheet_name_index],land_use_row,2,inventory_start,inventory_end)
             sheet_name_index=sheet_name_index+1
-    excel_writer.save()
+    excel_writer.close()
