@@ -173,5 +173,5 @@ if __name__ == "__main__":
     writer = pd.ExcelWriter(file_name,engine='xlsxwriter')
     writer =  CreateEUTable4Total2(writer,directory,countryls,inventory_start,inventory_end)
     print("Writing results to:",file_name)
-    writer.save()
+    writer.close()
     print("Done")

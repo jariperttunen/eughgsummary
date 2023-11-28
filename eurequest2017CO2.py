@@ -64,5 +64,5 @@ if __name__ == "__main__":
     for (row_name,sheet_name) in zip(tableSummary2_row_ls2,tableSummary2_sheet_ls2):
         euco2.CreateExcelSheet(writer,writer2,directory,countryls,sheet_ls[0],row_name,9,sheet_name,
                                start_year,end_year,conv=1.0)
-    writer2.save()
-    writer.save()
+    writer2.close()
+    writer.close()

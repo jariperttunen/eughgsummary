@@ -1,4 +1,5 @@
-
+## Columns in CRFReporter excel files
+## Used in eululucftotal.y
 netco2_col=1
 ch4_col=2
 n2o_col=3

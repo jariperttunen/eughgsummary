@@ -302,4 +302,4 @@ if __name__ == "__main__":
                         engine='xlsxwriter')
     #1. Table4G.s1
     CreateHWPExcelSheet(writer,args.f1,countryls,sheetls[0],table4Gs1_row_ls,5,table4Gs1_sheet_name_ls,inventory_start,inventory_end)
-    writer.save()
+    writer.close()
