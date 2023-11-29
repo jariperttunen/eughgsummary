@@ -20,7 +20,7 @@ land_use_change_sheet_name_ls = ['4A_CL-FL','4A_GL-FL','4A_WL-FL','4A_SL-FL','4A
 
 def EULandUseChange(excel_writer,directory,countryls,sheet:str,sheet_name:str,from_row:str,from_col:int,start:int,end:int):
     """
-    Read CRFReporter Reporting tables Table4.A-Table4-F and create Land Use Change Total Area sheets for each country and year.
+    Read CRFReporter Reporting tables Table4.A-Table4-F and create Land Use Change CO2 emissions  sheets for each country and year.
     \note The algorithm is identical to the one in *eulandtransitionmatrix.py*
     \param writer Excel writer
     \param directory The direactory where the Reporting tables are located
@@ -97,7 +97,7 @@ if __name__ == "__main__":
         for country in countryls[1:]:
             file_prefix = file_prefix+"_"+country
 
-    excel_writer = pd.ExcelWriter(file_prefix+'_Table4A-Table4F_land_use_change'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',engine='xlsxwriter')
+    excel_writer = pd.ExcelWriter(file_prefix+'_Table4A-Table4F_land_use_change_CO2'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',engine='xlsxwriter')
     sheet_name_index=0
     for land_use_sheet in land_use_change_table_ls:
         land_use_row_ls = land_use_change_rows_ls
@@ -105,6 +105,6 @@ if __name__ == "__main__":
         if land_use_sheet == 'Table4.D':
             land_use_row_ls = land_use_change_wl_rows_ls 
         for land_use_row in land_use_row_ls:
-            EULandUseChange(excel_writer,directory,countryls,land_use_sheet,land_use_change_sheet_name_ls[sheet_name_index],land_use_row,2,inventory_start,inventory_end)
+            EULandUseChange(excel_writer,directory,countryls,land_use_sheet,land_use_change_sheet_name_ls[sheet_name_index],land_use_row,17,inventory_start,inventory_end)
             sheet_name_index=sheet_name_index+1
     excel_writer.close()
