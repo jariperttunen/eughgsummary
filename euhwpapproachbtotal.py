@@ -93,7 +93,7 @@ def EUHwpApproachBTotal(excel_writer,directory:str,countryls:list,sheet:str,
     idx = pd.IndexSlice
     print(idx)
     idx_slice = idx['AUT',:]
-    df_domestic_gains = df_domestic_gains.style.apply(color_orange,subset=idx_slice,axis=None)
+    df_domestic_gains = df_domestic_gains.style.apply(color_orange,subset=idx_slice,axis=1)
     df_domestic_gains.to_excel(excel_writer,hwp_sheet_name_ls[0],na_rep='NaN')
     df_domestic_losses.to_excel(excel_writer,hwp_sheet_name_ls[1],na_rep='NaN')
     df_exported_gains.to_excel(excel_writer,hwp_sheet_name_ls[2],na_rep='NaN')
