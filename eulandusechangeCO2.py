@@ -105,6 +105,11 @@ if __name__ == "__main__":
         if land_use_sheet == 'Table4.D':
             land_use_row_ls = land_use_change_wl_rows_ls 
         for land_use_row in land_use_row_ls:
-            EULandUseChange(excel_writer,directory,countryls,land_use_sheet,land_use_change_sheet_name_ls[sheet_name_index],land_use_row,17,inventory_start,inventory_end)
+            #Normal case column 19 is net CO2
+            col_num = 19
+            if  land_use_sheet == 'Table4.D':
+                #Wetland column 17 is net CO2
+                col_num = 17
+            EULandUseChange(excel_writer,directory,countryls,land_use_sheet,land_use_change_sheet_name_ls[sheet_name_index],land_use_row,col_num,inventory_start,inventory_end)
             sheet_name_index=sheet_name_index+1
     excel_writer.close()
