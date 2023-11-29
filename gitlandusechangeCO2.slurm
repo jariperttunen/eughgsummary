@@ -17,5 +17,5 @@
 #Activate virtual environment
 source /home/jarip/venv/euco2/bin/activate
 #Data in CRF_vertailu and collect data for EU plus GBR, ISL and NOR
-srun  python eulandusechange.py -d /data/projects/khk/CRF_vertailu_2023/ -s 1990 -e 2021 --list &
+srun  python eulandusechangeCO2.py -d /data/projects/khk/CRF_vertailu_2023/ -s 1990 -e 2021 --list &
 wait
