@@ -21,7 +21,7 @@ install the packages:
 You may need to tell the proxy server for `pip`.
 
 ## Common command line arguments
-The scripts have the following command line arguments:
+The scripts have the following common command line arguments:
 + -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
       organised in this directory by countries (inventory parties) denoted with three letter acronyms.
 + -s: Start year of the inventory.
