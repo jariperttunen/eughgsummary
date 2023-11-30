@@ -129,8 +129,15 @@ def EUHwpApproachBTotal(excel_writer,directory:str,countryls:list,sheet:str,
         #Append to final dataframe
         df_result_tC = pd.concat([df_result_tC,df1T_country,df2T_country])
     #All countries collected, insert dataframe to excel
-    df_result_tC.columns = hwp_columns_ls 
-    df_result_tC.to_excel(excel_writer,hwp_sheet_name,na_rep='NaN',engine='xlsxwriter')
+    df_result_tC.columns = hwp_columns_ls
+    index_ls = (df_result_tC.index)
+    df_result_tC.index = list(range(0,len(index_ls+1)))
+    idx1 = pd.IndexSlice
+    slice1 = idx1[:,idx1["Gains(CO2)"]]
+    idx2 = pd.IndexSlice
+    slice2 = idx2[:,idx2["Losses(CO2)"]]
+    df_result_tC_styler=df_result_tC.style.set_properties(**{'background-color':'lightgreen'},subset=slice1).set_properties(**{'background-color':'lightgray'},subset=slice2)
+    df_result_tC_styler.to_excel(excel_writer,hwp_sheet_name,na_rep='NaN',engine='xlsxwriter')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
