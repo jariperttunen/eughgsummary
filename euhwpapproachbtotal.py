@@ -131,7 +131,6 @@ def EUHwpApproachBTotal(excel_writer,directory:str,countryls:list,sheet:str,
     #All countries collected, insert dataframe to excel
     df_result_tC.columns = hwp_columns_ls 
     df_result_tC.to_excel(excel_writer,hwp_sheet_name,na_rep='NaN',engine='xlsxwriter')
->>>>>>> 203f527b89e65d113f426fbb1ca947445105820a
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
