@@ -9,7 +9,7 @@ harvested wood products and LULUCF summary. The reporting categories or subcateg
 that are common to all parties. The collected data is provided as is, no further analysis or examination is done.
 
 ## Slurm 
-Each python program has *.slurm* file to be used with Slurm worlkoad manager.
+Each python program has *.slurm* file to be used with Slurm workload manager.
 
 ## Python virtual environment
 The `requirements.txt`  contains information for `pip` to install python packages
