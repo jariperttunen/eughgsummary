@@ -109,6 +109,8 @@ if __name__ == "__main__":
     group.add_argument("--euplus",action="store_true",dest="euplus",default=False,help="EU countries plus GBR, ISL, NOR")
     group.add_argument("-a","--all",action="store_true",dest="all",default=False,help="All countries (EU+others")
     group.add_argument("-c","--countries",dest="country",type=str,nargs='+',help="List of countries with the official acronyms separated by spaces")
+    group.add_argument("-l","--list",action="store_true",dest="countryls",default=False,
+                       help="List files in Inventory Parties Directory")
 
     args = parser.parse_args()
     directory=args.f1
@@ -129,6 +131,13 @@ if __name__ == "__main__":
         print("Using all countries")
         countryls = allcountryls
         file_prefix='EU_and_Others'
+    elif args.countryls:
+        print("Listing countries in",args.f1)
+        #The ??? mean three letter acronyms matched 
+        ls = glob.glob(args.f1+'/???')
+        countryls = [pathlib.Path(x).name for x in ls]
+        countryls.sort()
+        file_prefix = pathlib.Path(args.f1).name
     else:
         print("Using countries", args.countries) 
         countryls=args.country
