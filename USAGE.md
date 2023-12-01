@@ -22,6 +22,7 @@ You may need to tell the proxy server for `pip`.
 
 ## Common command line arguments
 The scripts have the following common command line arguments:
++ -h: Python command line help
 + -d: The main directory for the CRF Reporting tables. It is assumed the excel files are
       organised in this directory by countries (inventory parties) denoted with three letter acronyms.
 + -s: Start year of the inventory.
@@ -76,6 +77,9 @@ TL/DL/EL = HWP Total losses / Domestic Losses / Esported losses.
 
 ## eulandusechangeCO2.py
 Read CRFReporter Reporting tables Table4.A-Table4-F and create Land Use Change CO2 emissions sheets for each country and year.
+
+Simple CO2 columns coloring:
++ --visual: Color Gains in green and Losses in grey.
 
 ## Examples
 
