@@ -11,6 +11,10 @@ hwp_row = 'Total'
 hwp_row_total = 'TOTAL HWP'
 hwp_sheet_name = 'HWP Table4.Gs1'
 hwp_columns_ls = ["Country","Year","Gains(tC)","Gains(CO2)","TG/DG/EG","Losses(tC)","Losses(CO2)","TL/DL/EL"]
+
+bgcolorgreen = 'lightgreen'
+bgcolorgray ='lightgray'
+
 def color_orange(val):
     """
     Highlight in orange, to be used with row selection of countries
@@ -18,6 +22,14 @@ def color_orange(val):
     """
     return  'background-color: orange'
 
+def color_columns(s):
+    if s == hwp_columns_ls[3]:
+        return 'background-color:'+bgcolorgreen
+    elif s == hwp_columns_ls[6]:
+        return 'background-color:'+bgcolorgray
+    else:
+        return'background-color:None'
+    
 def convert_co2(x):
     try:
         x = 44.0/12.0*x
@@ -25,8 +37,7 @@ def convert_co2(x):
     except:
         return x
     
-def EUHwpApproachBTotal(excel_writer,directory:str,countryls:list,sheet:str,
-                        from_row:str,from_row_total:str,col_gains:int,col_losses:int,start:int,end:int):
+def EUHwpApproachBTotal(excel_writer,directory:str,countryls:list,sheet:str,from_row:str,from_row_total:str,col_gains:int,col_losses:int,start:int,end:int,visual:bool):
     """
     Read CRFReporter Reporting table Table4.Gs1 excel sheets for Total HWP (tC) domestic and exported, gains and losses.
     \note The algorithm is similar to the one in *eulandtransitionmatrix.py*
@@ -132,18 +143,22 @@ def EUHwpApproachBTotal(excel_writer,directory:str,countryls:list,sheet:str,
     df_result_tC.columns = hwp_columns_ls
     index_ls = (df_result_tC.index)
     df_result_tC.index = list(range(0,len(index_ls+1)))
-    idx1 = pd.IndexSlice
-    slice1 = idx1[:,idx1["Gains(CO2)"]]
-    idx2 = pd.IndexSlice
-    slice2 = idx2[:,idx2["Losses(CO2)"]]
-    df_result_tC_styler=df_result_tC.style.set_properties(**{'background-color':'lightgreen'},subset=slice1).set_properties(**{'background-color':'lightgray'},subset=slice2)
-    df_result_tC_styler.to_excel(excel_writer,hwp_sheet_name,na_rep='NaN',engine='xlsxwriter')
-
+    if visual:
+        idx1 = pd.IndexSlice
+        slice1 = idx1[:,idx1["Gains(CO2)"]]
+        idx2 = pd.IndexSlice
+        slice2 = idx2[:,idx2["Losses(CO2)"]]
+        df_result_tC_styler=df_result_tC.style.set_properties(**{'background-color':bgcolorgreen},subset=slice1).set_properties(**{'background-color':bgcolorgray},subset=slice2).map_index(color_columns,axis=1)
+        df_result_tC_styler.to_excel(excel_writer,hwp_sheet_name,na_rep='NaN',engine='xlsxwriter')
+    else:
+        df_result_tC.to_excel(excel_writer,hwp_sheet_name,na_rep='NaN',engine='xlsxwriter')
+        
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-d","--directory",dest="f1",required=True,help="Inventory Parties Directory")
     parser.add_argument("-s","--start",dest="f2",required=True,help="Inventory start year (usually 1990)")
     parser.add_argument("-e","--end",dest="f3",required=True,help="Inventory end year")
+    parser.add_argument("-v","--visual",action="store_true",dest="f4",default=False,help="Coloring dataframe")
     group=parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--eu",action="store_true",dest="eu",default=False,help="EU countries")
     group.add_argument("--euplus",action="store_true",dest="euplus",default=False,help="EU countries plus GBR, ISL and NOR")
@@ -184,7 +199,10 @@ if __name__ == "__main__":
         file_prefix=countryls[0]
         for country in countryls[1:]:
             file_prefix = file_prefix+"_"+country
-
+    visual = False
+    if args.f4:
+        visual=True
+        
     excel_writer = pd.ExcelWriter(file_prefix+'_Table4.Gs1_HWPApproachBTotal_'+str(inventory_start)+'_'+str(inventory_end)+'.xlsx',engine='xlsxwriter')
-    EUHwpApproachBTotal(excel_writer,directory,countryls,hwp_table,hwp_row,hwp_row_total,1,2,inventory_start,inventory_end)
+    EUHwpApproachBTotal(excel_writer,directory,countryls,hwp_table,hwp_row,hwp_row_total,1,2,inventory_start,inventory_end,visual)
     excel_writer.close()
