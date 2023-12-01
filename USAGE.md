@@ -75,11 +75,12 @@ between Domestic and Exported categories. The results are in Excel by columns. T
 and Losses: TG/DG/EG = HWP Total gains / Domestic gains / Exported gains, 
 TL/DL/EL = HWP Total losses / Domestic Losses / Esported losses.
 
+Simple CO2 columns coloring:
++ --visual: Color CO2 Gains in green and CO2 Losses in grey.
+
 ## eulandusechangeCO2.py
 Read CRFReporter Reporting tables Table4.A-Table4-F and create Land Use Change CO2 emissions sheets for each country and year.
 
-Simple CO2 columns coloring:
-+ --visual: Color Gains in green and Losses in grey.
 
 ## Examples
 
