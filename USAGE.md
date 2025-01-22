@@ -99,5 +99,5 @@ CRFReporter excel files are in *CRF_vertailu* and collect data according to coun
 	  
 The built-in `-h` option for python scripts gives help for command line arguments.
 
-[^gwp] Global Warming Potential
+[^gwp]: Global Warming Potential
 
