@@ -1,12 +1,16 @@
 # Create GHG summaries from CRF Reporting tables.
 
-To alleviate examination and comparison of GHG net emissions in reporting countries
-eughgsummary contains three scripts to collect and organise data from annual CRF Reporting tables
+To alleviate examination and comparison of GHG net emissions between reporting countries
+*eughgsummary* contains scripts to collect and organise data from annual CRF Reporting tables
 (i.e. "official excel files") as country by country and year by year excel files and sheets. 
 
 Currently it is possible to gather data with three scripts concerning LULUCF land use categories,
 harvested wood products and LULUCF summary. The reporting categories or subcategories used are the ones 
 that are common to all parties. The collected data is provided as is, no further analysis or examination is done.
+
+[!NOTE]
+These scripts work with the official Excel files generated from the obsolete CRFReporter. 
+The new ETF Reporting Tool has different format to report GHG inventories.
 
 ## Slurm 
 Each python program has *.slurm* file to be used with Slurm workload manager.
