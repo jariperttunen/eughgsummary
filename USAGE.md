@@ -20,7 +20,7 @@ The `requirements.txt`  contains information for `pip` to install python package
 required by *eughgsummary*. First, create python virtual environment, activate it and
 install the packages:
 
-	+ pip  install -r requirements.txt
++ pip  install -r requirements.txt
  
 You may need to tell the proxy server for `pip`.
 
