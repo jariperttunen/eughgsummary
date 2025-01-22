@@ -9,7 +9,7 @@ harvested wood products and LULUCF summary. The reporting categories or subcateg
 that are common to all parties. The collected data is provided as is, no further analysis or examination is done.
 
 >[!NOTE]
->These scripts work with the official Excel files generated from the obsolete CRFReporter. 
+>These scripts work with the official Excel files generated with the obsolete CRFReporter. 
 >The new ETF Reporting Tool has different format to report GHG inventories.
 
 ## Slurm 
