@@ -21,7 +21,7 @@ required by *eughgsummary*. First, create python virtual environment, activate i
 install the packages:
 
 	+ pip  install -r requirements.txt
-
+ 
 You may need to tell the proxy server for `pip`.
 
 ## Common command line arguments
