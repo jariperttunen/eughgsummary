@@ -37,11 +37,6 @@ To select countries one of the following must be used in the command line:
 
 Some countries report years in 1980's. These are filtered out.
 
-## euco2.py
-The scripts collects net emissions from the Table 4.A to Table 4.F. This amounts to data for LULUCF
-land use, land-use change and forestry. The output is a single file of all net emissions collected
-and one file of net emissions for each of the six Tables 4 A-F.
-
 ## euco2hwp.py
 The script collects net emissions Harvested wood products (HWP) data for Total HWP, Total HWP Domestic
 and Total HWP Exported from the Table4.Gs1. Note a country may have reported Total HWP only.
@@ -81,6 +76,13 @@ Simple CO2 columns coloring:
 ## eulandusechangeCO2.py
 Read CRFReporter Reporting tables Table4.A-Table4-F and create Land Use Change CO2 emissions sheets for each country and year.
 
+### euco2.py
+
+Obsolete, use `eulandusechangeCO2.py` instead.
+
+The scripts collects net emissions from the Table 4.A to Table 4.F. This amounts to data for LULUCF
+land use, land-use change and forestry. The output is a single file of all net emissions collected
+and one file of net emissions for each of the six Tables 4 A-F.
 
 ## Examples
 
