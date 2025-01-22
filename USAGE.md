@@ -17,8 +17,8 @@ Each python program has *.slurm* file to be used with Slurm workload manager.
 
 ## Python virtual environment
 The `requirements.txt`  contains information for `pip` to install python packages
-required by *eughgsummary*. First, create python virtual environment, activate it and
-install the packages:
+required by *eughgsummary*. First, create [python virtual environment](https://docs.python.org/3/library/venv.html), 
+activate it and install the packages:
 
 + pip  install -r requirements.txt
  
