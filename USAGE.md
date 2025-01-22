@@ -57,7 +57,7 @@ Other (rows A, B, C, D, E and F).  The unit is CO<sub>2</sub>eq, i.e. CH<sub>4</
 net emissions are changed to CO<sub>2</sub>eq  with their Global warming potentials (GWP).
 The output is a single file containing sheets for items collected from Table 4.
   
-To define GWP to be used:
+To define GWP[^gwp] to be used:
 + --GWP: possible values are AR4 (default, used in GHG) or AR5.
 
 ##  eulandtransitionmatrix.py
@@ -99,5 +99,5 @@ CRFReporter excel files are in *CRF_vertailu* and collect data according to coun
 	  
 The built-in `-h` option for python scripts gives help for command line arguments.
 
-
+[^gwp] Global Warming Potential
 
