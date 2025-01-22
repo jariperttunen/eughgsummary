@@ -8,9 +8,9 @@ Currently it is possible to gather data with three scripts concerning LULUCF lan
 harvested wood products and LULUCF summary. The reporting categories or subcategories used are the ones 
 that are common to all parties. The collected data is provided as is, no further analysis or examination is done.
 
-[!NOTE]
-These scripts work with the official Excel files generated from the obsolete CRFReporter. 
-The new ETF Reporting Tool has different format to report GHG inventories.
+>[!NOTE]
+>These scripts work with the official Excel files generated from the obsolete CRFReporter. 
+>The new ETF Reporting Tool has different format to report GHG inventories.
 
 ## Slurm 
 Each python program has *.slurm* file to be used with Slurm workload manager.
